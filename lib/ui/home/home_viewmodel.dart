@@ -30,17 +30,33 @@ class HomeViewModel extends ChangeNotifier {
       {
         'name': 'Summer Dress',
         'text': 'A light and airy dress perfect for summer days.',
+        'reference': 'Baptman',
+        'referenceType': '',
       },
       {
         'name': 'Winter Coat',
         'text': 'A warm and cozy coat for winter weather.',
+        'reference': 'Clair obscur: Expédition 33',
+        'referenceType': '',
       },
       {
         'name': 'Evening Gown',
         'text': 'An elegant gown for special occasions.',
+        'reference': 'Frieren',
+        'referenceType': '',
       },
-      {'name': 'Casual Outfit', 'text': 'A comfortable everyday outfit.'},
-      {'name': 'Sportswear', 'text': 'Performance wear for active lifestyles.'},
+      {
+        'name': 'Casual Outfit',
+        'text': 'A comfortable everyday outfit.',
+        'reference': 'Les carnets de l\'apoticaire',
+        'referenceType': '',
+      },
+      {
+        'name': 'Sportswear',
+        'text': 'Performance wear for active lifestyles.',
+        'reference': 'Oshi no ko',
+        'referenceType': '',
+      },
     ];
 
     for (int i = 0; i < mockData.length; i++) {
@@ -49,10 +65,12 @@ class HomeViewModel extends ChangeNotifier {
         uuid: i.toString(),
         name: item['name']!,
         text: item['text']!,
-        image: CreationConstants.mockImageUrl,
+        reference: item['reference']!,
+        referenceType: item['referenceType']!,
+        image: "",
       );
 
-      // _recentCreations.add(creation);
+      _recentCreations.add(creation);
       _myCreations.add(creation);
     }
 
@@ -60,7 +78,9 @@ class HomeViewModel extends ChangeNotifier {
       uuid: mockData.first['uuid'].toString(),
       name: mockData.first['name'].toString(),
       text: mockData.first['text'].toString(),
-      image: CreationConstants.mockImageUrl,
+      reference: mockData.first['reference']!,
+      referenceType: mockData.first['referenceType']!,
+      image: "",
     );
   }
 }

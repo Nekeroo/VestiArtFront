@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'app_spacing.dart';
 import 'app_radius.dart';
 
 const _buttonRadius = AppRadius.s;
@@ -10,10 +9,7 @@ class AppButtonStyles {
     return ElevatedButton.styleFrom(
       foregroundColor: colorScheme.onPrimary,
       backgroundColor: colorScheme.primary,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(_buttonRadius),
       ),
@@ -26,10 +22,7 @@ class AppButtonStyles {
     return FilledButton.styleFrom(
       foregroundColor: colorScheme.onPrimary,
       backgroundColor: colorScheme.primary,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(_buttonRadius),
       ),
@@ -40,10 +33,7 @@ class AppButtonStyles {
   static ButtonStyle outlinedButtonStyle(ColorScheme colorScheme) {
     return OutlinedButton.styleFrom(
       foregroundColor: colorScheme.primary,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.l,
-        vertical: AppSpacing.m,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       side: BorderSide(color: colorScheme.primary, width: 1.5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(_buttonRadius),
@@ -55,10 +45,7 @@ class AppButtonStyles {
   static ButtonStyle textButtonStyle(ColorScheme colorScheme) {
     return TextButton.styleFrom(
       foregroundColor: colorScheme.primary,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.m,
-        vertical: AppSpacing.xs,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(_buttonRadius),
       ),
@@ -70,6 +57,7 @@ class AppButtonStyles {
     return IconButton.styleFrom(
       foregroundColor: colorScheme.primary,
       backgroundColor: Colors.transparent,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(_buttonRadius),
       ),

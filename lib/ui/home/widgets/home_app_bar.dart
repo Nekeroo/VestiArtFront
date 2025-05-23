@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/ui/common/theme/app_radius.dart';
+import 'package:vesti_art/ui/generation/prompting/prompting_page.dart';
 import '../home_viewmodel.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final HomeViewModel viewModel;
-  final Function(BuildContext, HomeViewModel) onAddCreationPressed;
 
-  const HomeAppBar({
-    super.key,
-    required this.viewModel,
-    required this.onAddCreationPressed,
-  });
+  const HomeAppBar({super.key, required this.viewModel});
 
   @override
   Size get preferredSize => const Size.fromHeight(130);
@@ -83,13 +79,17 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               right: 16,
               bottom: -20,
               child: ElevatedButton.icon(
-                onPressed: () => onAddCreationPressed(context, viewModel),
+                onPressed:
+                    () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PromptingPage(),
+                        ),
+                      ),
+                    },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.secondary,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),

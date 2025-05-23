@@ -34,10 +34,7 @@ class _HomePageState extends State<HomePage> {
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
-        appBar: HomeAppBar(
-          viewModel: _viewModel,
-          onAddCreationPressed: (context, viewModel) => Map.from({}),
-        ),
+        appBar: HomeAppBar(viewModel: _viewModel),
         body: Consumer<HomeViewModel>(
           builder: (context, viewModel, _) {
             if (viewModel.isLoading) {
