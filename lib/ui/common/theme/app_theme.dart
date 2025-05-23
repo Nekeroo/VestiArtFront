@@ -4,14 +4,12 @@ import 'app_bar_theme.dart';
 
 class AppColors {
   static const Color seedColor = Color(0xFF6200EE);
-  static const Color errorColor = Color(0xFFB00020);
 }
 
 ThemeData _createTheme({required Brightness brightness}) {
   final colorScheme = ColorScheme.fromSeed(
     seedColor: AppColors.seedColor,
     brightness: brightness,
-    error: AppColors.errorColor,
   );
 
   return ThemeData(

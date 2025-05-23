@@ -1,10 +1,12 @@
+import 'package:vesti_art/core/models/reference_type.dart';
+
 class Creation {
   final String uuid;
   final String name;
   final String text;
   final String image;
   final String reference;
-  final String referenceType;
+  final ReferenceType referenceType;
 
   Creation({
     required this.uuid,

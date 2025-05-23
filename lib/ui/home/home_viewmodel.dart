@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vesti_art/core/models/reference_type.dart';
 import '../../core/models/creation.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -66,7 +67,9 @@ class HomeViewModel extends ChangeNotifier {
         name: item['name']!,
         text: item['text']!,
         reference: item['reference']!,
-        referenceType: item['referenceType']!,
+        referenceType: ReferenceType.fromString(
+          item['referenceType']!.toString(),
+        ),
         image: "",
       );
 
@@ -79,7 +82,9 @@ class HomeViewModel extends ChangeNotifier {
       name: mockData.first['name'].toString(),
       text: mockData.first['text'].toString(),
       reference: mockData.first['reference']!,
-      referenceType: mockData.first['referenceType']!,
+      referenceType: ReferenceType.fromString(
+        mockData.first['referenceType'].toString(),
+      ),
       image: "",
     );
   }
