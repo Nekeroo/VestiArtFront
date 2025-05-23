@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+import 'package:vesti_art/ui/common/theme/app_radius.dart';
+import '../home_viewmodel.dart';
+
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final HomeViewModel viewModel;
+  final Function(BuildContext, HomeViewModel) onAddCreationPressed;
+
+  const HomeAppBar({
+    super.key,
+    required this.viewModel,
+    required this.onAddCreationPressed,
+  });
+
+  @override
+  Size get preferredSize => const Size.fromHeight(130);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return AppBar(
+      elevation: 2,
+      backgroundColor: theme.colorScheme.surface,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(AppRadius.m),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              theme.colorScheme.primary.withValues(alpha: 0.2),
+              theme.colorScheme.primary.withValues(alpha: 0.05),
+            ],
+          ),
+        ),
+      ),
+      title: Row(
+        children: [
+          Text(
+            'Vesti',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+          Text(
+            'Art',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.secondary,
+            ),
+          ),
+        ],
+      ),
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Explorez vos créations',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 16,
+              bottom: -20,
+              child: ElevatedButton.icon(
+                onPressed: () => onAddCreationPressed(context, viewModel),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.colorScheme.secondary,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: const Icon(Icons.add, size: 18),
+                label: const Text('Nouvelle création'),
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [IconButton(icon: const Icon(Icons.login), onPressed: () {})],
+    );
+  }
+}
