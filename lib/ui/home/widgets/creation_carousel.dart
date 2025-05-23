@@ -6,12 +6,14 @@ class CreationCarousel extends StatelessWidget {
   final List<Creation> creations;
   final String title;
   final IconData icon;
+  final String emptyMessage;
 
   const CreationCarousel({
     super.key,
     required this.creations,
     required this.title,
     required this.icon,
+    required this.emptyMessage,
   });
 
   @override
@@ -66,6 +68,10 @@ class CreationCarousel extends StatelessWidget {
   }
 
   Widget _buildCreationsList(BuildContext context) {
+    if (creations.isEmpty) {
+      return _buildEmptyState(context);
+    }
+
     return SizedBox(
       height: 230,
       child: ListView.builder(
@@ -80,6 +86,51 @@ class CreationCarousel extends StatelessWidget {
             child: _buildCreationCard(context, creations[index]),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: theme.colorScheme.primary.withValues(alpha: 0.1),
+          width: 1,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.add_circle_outline,
+              size: 48,
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Aucune création',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              emptyMessage,
+              style: TextStyle(
+                fontSize: 14,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

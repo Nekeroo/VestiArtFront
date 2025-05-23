@@ -72,12 +72,15 @@ class _HomePageState extends State<HomePage> {
           creations: viewModel.recentCreations,
           title: 'Récents',
           icon: Icons.access_time,
+          emptyMessage: 'Consultez les créations récentes des utilisateurs ici',
         ),
         CreationCarousel(
           creations: viewModel.myCreations,
           title: 'Mes créations',
           icon: Icons.person_rounded,
+          emptyMessage: 'Ajoutez votre première création',
         ),
+        const SliverToBoxAdapter(child: SizedBox(height: 30)),
       ],
     );
   }

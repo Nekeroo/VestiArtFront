@@ -9,8 +9,8 @@ class HomeViewModel extends ChangeNotifier {
 
   HomeViewModel();
 
-  List<Creation> get myCreations => List.unmodifiable(_myCreations);
-  List<Creation> get recentCreations => List.unmodifiable(_recentCreations);
+  List<Creation> get myCreations => _myCreations;
+  List<Creation> get recentCreations => _recentCreations;
   Creation? get featuredCreation => _featuredCreation;
   bool get isLoading => _isLoading;
 
@@ -52,10 +52,15 @@ class HomeViewModel extends ChangeNotifier {
         image: CreationConstants.mockImageUrl,
       );
 
-      _recentCreations.add(creation);
+      // _recentCreations.add(creation);
       _myCreations.add(creation);
     }
 
-    _featuredCreation = _recentCreations.first;
+    _featuredCreation = Creation(
+      uuid: mockData.first['uuid'].toString(),
+      name: mockData.first['name'].toString(),
+      text: mockData.first['text'].toString(),
+      image: CreationConstants.mockImageUrl,
+    );
   }
 }
