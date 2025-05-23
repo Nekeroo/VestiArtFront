@@ -99,7 +99,9 @@ class MyCreationsSymbol extends StatelessWidget {
               children: [
                 ImageWithPlaceholder(
                   imageUrl: creation.image,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.cover,
+                  width: 150,
+                  height: 150,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),

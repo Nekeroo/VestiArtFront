@@ -1,13 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vesti_art/ui/home/widgets/creation_carousel.dart';
 import '../../core/models/creation.dart';
 import 'home_viewmodel.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/empty_state_section.dart';
 import 'widgets/featured_creation_section.dart';
-import 'widgets/my_creations_section.dart';
-import 'widgets/recent_creations_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -82,8 +81,17 @@ class _HomePageState extends State<HomePage> {
             creation: creations.first,
             onTap: () => onCreationTap(creations.first),
           ),
-        RecentCreationsSection(creations: recentCreations),
-        MyCreationsSymbol(creations: myCreations),
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        CreationCarousel(
+          creations: recentCreations,
+          title: 'Récents',
+          icon: Icons.access_time,
+        ),
+        CreationCarousel(
+          creations: myCreations,
+          title: 'Mes créations',
+          icon: Icons.person_rounded,
+        ),
       ],
     );
   }
