@@ -1,11 +1,9 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/ui/home/widgets/creation_carousel.dart';
 import '../../core/models/creation.dart';
 import 'home_viewmodel.dart';
 import 'widgets/home_app_bar.dart';
-import 'widgets/empty_state_section.dart';
 import 'widgets/featured_creation_section.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,45 +48,33 @@ class _HomePageState extends State<HomePage> {
               );
             }
 
-            if (viewModel.creations.isEmpty) {
-              return _buildEmptyState();
-            }
-
-            return _buildHomeContent(viewModel.creations);
+            return _buildHomeContent(viewModel);
           },
         ),
       ),
     );
   }
 
-  Widget _buildEmptyState() {
-    return EmptyStateSection(onAddCreation: () => {});
-  }
-
-  Widget _buildHomeContent(List<Creation> creations) {
-    final recentCreations = creations.take(min(creations.length, 3)).toList();
-    final myCreations =
-        creations.length > 3 ? creations.skip(3).toList() : <Creation>[];
-
+  Widget _buildHomeContent(HomeViewModel viewModel) {
     void onCreationTap(Creation creation) {
       print('Creation tapped: ${creation.name}');
     }
 
     return CustomScrollView(
       slivers: [
-        if (creations.isNotEmpty)
+        if (viewModel.featuredCreation != null)
           FeaturedCreationSection(
-            creation: creations.first,
-            onTap: () => onCreationTap(creations.first),
+            creation: viewModel.featuredCreation!,
+            onTap: () => onCreationTap(viewModel.featuredCreation!),
           ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
         CreationCarousel(
-          creations: recentCreations,
+          creations: viewModel.recentCreations,
           title: 'Récents',
           icon: Icons.access_time,
         ),
         CreationCarousel(
-          creations: myCreations,
+          creations: viewModel.myCreations,
           title: 'Mes créations',
           icon: Icons.person_rounded,
         ),

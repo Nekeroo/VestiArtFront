@@ -2,53 +2,24 @@ import 'package:flutter/material.dart';
 import '../../core/models/creation.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final List<Creation> _creations = [];
+  final List<Creation> _myCreations = [];
+  final List<Creation> _recentCreations = [];
+  Creation? _featuredCreation;
   bool _isLoading = false;
-  int _selectedIndex = 0;
 
   HomeViewModel();
 
-  List<Creation> get creations => List.unmodifiable(_creations);
+  List<Creation> get myCreations => List.unmodifiable(_myCreations);
+  List<Creation> get recentCreations => List.unmodifiable(_recentCreations);
+  Creation? get featuredCreation => _featuredCreation;
   bool get isLoading => _isLoading;
-  int get selectedIndex => _selectedIndex;
-
-  void changeTab(int index) {
-    if (_selectedIndex != index) {
-      _selectedIndex = index;
-      notifyListeners();
-    }
-  }
-
-  Future<Creation?> generateCreation(String name, String text) async {
-    _isLoading = true;
-    notifyListeners();
-
-    await Future.delayed(const Duration(seconds: 1));
-
-    final creation = Creation(
-      uuid: DateTime.now().millisecondsSinceEpoch.toString(),
-      name: name,
-      text: text,
-      image: CreationConstants.mockImageUrl,
-    );
-
-    _creations.add(creation);
-
-    _isLoading = false;
-    notifyListeners();
-
-    return creation;
-  }
 
   Future<void> loadCreations() async {
     _isLoading = true;
     notifyListeners();
 
     await Future.delayed(const Duration(seconds: 1));
-
-    if (_creations.isEmpty) {
-      _addMockCreations();
-    }
+    _addMockCreations();
 
     _isLoading = false;
     notifyListeners();
@@ -81,7 +52,10 @@ class HomeViewModel extends ChangeNotifier {
         image: CreationConstants.mockImageUrl,
       );
 
-      _creations.add(creation);
+      _recentCreations.add(creation);
+      _myCreations.add(creation);
     }
+
+    _featuredCreation = _recentCreations.first;
   }
 }
