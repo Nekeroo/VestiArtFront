@@ -4,7 +4,7 @@ abstract class ApiConfig {
   final dio = Dio();
 
   ApiConfig() {
-    dio.options.baseUrl = 'http://vestiartapp.mathieugr.fr:8080/';
+    dio.options.baseUrl = 'https://vestiartapp.mathieugr.fr:8080/';
     dio.options.connectTimeout = const Duration(seconds: 60);
     dio.options.receiveTimeout = const Duration(seconds: 60);
 
