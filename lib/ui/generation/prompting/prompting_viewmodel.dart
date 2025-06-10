@@ -5,7 +5,7 @@ class PromptingViewModel extends ChangeNotifier {
   static const int maxCreations = 5;
 
   final List<CreationDraft> _creationDrafts = [];
-  bool _isGenerating = false;
+  final bool _isGenerating = false;
 
   List<CreationDraft> get creationDrafts => List.unmodifiable(_creationDrafts);
   bool get isGenerating => _isGenerating;
