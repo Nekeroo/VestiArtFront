@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:vesti_art/ui/admin/admin_panel.View.dart';
 import 'ui/common/theme/app_theme.dart';
 import 'ui/home/home_page.dart';
 
@@ -17,7 +21,10 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home: const HomePage(),
+      home: kIsWeb ? const AdminPanelView() : const HomePage(),
+      // (Platform.isAndroid || Platform.isIOS)
+      //     ? const HomePage()
+      //     : const AdminPanelView(),
     );
   }
 }
