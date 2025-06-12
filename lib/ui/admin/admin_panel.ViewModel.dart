@@ -15,7 +15,7 @@ class AdminPanelViewModel extends ChangeNotifier {
 
     try {
       _articles.clear();
-      _articles = await CreationApi().getAll();
+      _articles = await ApiCreation().getAll();
     } catch (e) {
       print('Error loading articles: $e');
     }

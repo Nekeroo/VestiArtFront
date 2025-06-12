@@ -32,11 +32,11 @@ class HomeViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    _recentCreations = await CreationApi.instance.getAll();
+    _recentCreations = await ApiCreation.instance.getAll();
     _featuredCreation = _recentCreations.first;
 
     if (AuthenticationService.instance.isAuthenticated) {
-      _myCreations = await CreationApi.instance.getAll();
+      _myCreations = await ApiCreation.instance.getAll();
     }
 
     _isLoading = false;
