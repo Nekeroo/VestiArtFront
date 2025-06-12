@@ -19,7 +19,12 @@ abstract class ApiConfig {
           options.headers['Authorization'] = 'Bearer $userToken';
           handler.next(options);
         },
+        onResponse: (response, handler) {
+          printResponseData(response);
+          handler.next(response);
+        },
         onError: (error, handler) {
+          printResponseData(error.response);
           final exception = DioException(
             requestOptions: error.requestOptions,
             response: error.response,
@@ -31,5 +36,12 @@ abstract class ApiConfig {
         },
       ),
     );
+  }
+
+  void printResponseData(Response? response) {
+    if (response == null) return;
+    print("RESPONSE ENDPOINT => ${response.requestOptions.path}");
+    print("RESSPONSE STATUS CODE => ${response.statusCode}");
+    print("RESSPONSE DATA => ${response.data}");
   }
 }

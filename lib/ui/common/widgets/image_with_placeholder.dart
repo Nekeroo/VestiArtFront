@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ImagePaths {
-  static const String placeholderPath = 'assets/images/placeholder.jpg';
+class ImageColors {
+  static const Color placeholderColor = Color(0xFFEEEEEE);
 }
 
 class ImageWithPlaceholder extends StatelessWidget {
@@ -51,11 +51,17 @@ class ImageWithPlaceholder extends StatelessWidget {
   }
 
   Widget _buildPlaceholder() {
-    return Image.asset(
-      ImagePaths.placeholderPath,
-      fit: fit,
+    return Container(
       width: width,
       height: height,
+      color: ImageColors.placeholderColor,
+      child: Center(
+        child: Icon(
+          Icons.image_outlined,
+          size: 40,
+          color: Colors.grey,
+        ),
+      ),
     );
   }
 }

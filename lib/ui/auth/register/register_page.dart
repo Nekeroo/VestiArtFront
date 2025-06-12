@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
-import 'login_viewmodel.dart';
-import 'widgets/login_form.dart';
+import 'register_viewmodel.dart';
+import 'widgets/register_form.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final _viewModel = LoginViewModel();
+class _RegisterPageState extends State<RegisterPage> {
+  final _viewModel = RegisterViewModel();
 
   @override
   void dispose() {
@@ -25,10 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Connexion'),
-          centerTitle: true,
-        ),
+        appBar: AppBar(title: const Text('Inscription'), centerTitle: true),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -40,19 +37,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     'VestiArt',
                     style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 48),
-                const LoginForm(),
+                const RegisterForm(),
                 const SizedBox(height: 24),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.register);
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
                   },
-                  child: const Text('Pas encore de compte ? S\'inscrire'),
+                  child: const Text('Déjà un compte ? Se connecter'),
                 ),
               ],
             ),

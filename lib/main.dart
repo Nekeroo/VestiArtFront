@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/routing/app_routes.dart';
 import 'core/services/authentication_service.dart';
-import 'ui/auth/login/login_screen.dart';
-import 'ui/auth/register/register_screen.dart';
+import 'ui/auth/login/login_page.dart';
+import 'ui/auth/register/register_page.dart';
 import 'ui/common/theme/app_theme.dart';
 import 'ui/generation/prompting/prompting_page.dart';
 import 'ui/home/home_page.dart';
@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
             initialRoute: AppRoutes.home,
             routes: {
               AppRoutes.home: (context) => const HomePage(),
-              AppRoutes.login: (context) => const LoginScreen(),
-              AppRoutes.register: (context) => const RegisterScreen(),
+              AppRoutes.login: (context) => const LoginPage(),
+              AppRoutes.register: (context) => const RegisterPage(),
               AppRoutes.creationPrompting: (context) => const PromptingPage(),
             },
           );
