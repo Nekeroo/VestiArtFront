@@ -31,10 +31,16 @@ class AdminPanelView extends StatelessWidget {
                       child: ListTile(
                         title: Text(article.title),
                         subtitle: Text(article.description),
-                        leading: const Icon(
-                          Icons.picture_as_pdf,
-                          color: Colors.red,
+                        leading: IconButton(
+                          icon: const Icon(
+                            Icons.picture_as_pdf,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            // download pdf
+                          },
                         ),
+
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -50,7 +56,7 @@ class AdminPanelView extends StatelessWidget {
                             IconButton(
                               icon: const Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
-                                // delete article
+                                //viewModel.deleteArticle(article.idExterne);
                                 print('Delete article: ${article.idExterne}');
                               },
                             ),
@@ -68,6 +74,7 @@ class AdminPanelView extends StatelessWidget {
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 // add article
+                print('Add new article');
               },
               child: const Icon(Icons.add),
             ),

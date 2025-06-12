@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vesti_art/core/services/authentication_service.dart';
+import 'package:vesti_art/ui/auth/widgets/auth_banner.dart';
 import 'package:vesti_art/ui/home/widgets/creation_carousel.dart';
 import '../../core/models/creation.dart';
 import 'home_viewmodel.dart';
@@ -21,6 +23,39 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _viewModel = HomeViewModel();
     _loadData();
+    
+    // Vérifier les erreurs d'authentification
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAuthErrors();
+    });
+  }
+
+  void _checkAuthErrors() {
+    final authService = AuthenticationService.instance;
+    if (authService.hasAuthError) {
+      _showAuthErrorDialog();
+    }
+  }
+
+  void _showAuthErrorDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Erreur d\'authentification'),
+        content: const Text(
+          'Impossible de récupérer vos informations utilisateur. Veuillez vous reconnecter.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _loadData() async {
@@ -53,30 +88,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeContent(HomeViewModel viewModel) {
-    void onCreationTap(Creation creation) {
-      print('Creation tapped: ${creation.name}');
-    }
+    void onCreationTap(Creation creation) {}
+
+    final authService = Provider.of<AuthenticationService>(
+      context,
+      listen: false,
+    );
 
     return CustomScrollView(
       slivers: [
+        if (!authService.isAuthenticated && viewModel.showAuthBanner)
+          const SliverToBoxAdapter(child: SizedBox(height: 32)),
+        if (!authService.isAuthenticated && viewModel.showAuthBanner)
+          SliverToBoxAdapter(
+            child: AuthBanner(
+              onDismiss: () {
+                viewModel.dismissAuthBanner();
+              },
+            ),
+          ),
+
         if (viewModel.featuredCreation != null)
           FeaturedCreationSection(
             creation: viewModel.featuredCreation!,
             onTap: () => onCreationTap(viewModel.featuredCreation!),
           ),
+
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
         CreationCarousel(
           creations: viewModel.recentCreations,
           title: 'Récents',
           icon: Icons.access_time,
           emptyMessage: 'Consultez les créations récentes des utilisateurs ici',
         ),
+
         CreationCarousel(
           creations: viewModel.myCreations,
           title: 'Mes créations',
           icon: Icons.person_rounded,
           emptyMessage: 'Ajoutez votre première création',
         ),
+
         const SliverToBoxAdapter(child: SizedBox(height: 30)),
       ],
     );

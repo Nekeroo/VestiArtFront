@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/creation.dart';
-import 'package:vesti_art/networking/creation_api.dart';
+import 'package:vesti_art/networking/api_creation.dart';
 import 'article.model.dart';
 
 class AdminPanelViewModel extends ChangeNotifier {
@@ -32,43 +32,6 @@ class AdminPanelViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _addMockArticles() {
-    final mockData = [
-      Article(
-        title: 'Outfit Daffy !',
-        description:
-            'Get ready to waddle into style with our exclusive Daffy Duck-inspired outfit (soft cotton blend, glossy finish; sizes XS-XXL) featuring black base, orange shoes/beak, yellow accents, white details—complete with cap, sunglasses & orange sneakers!',
-        idExterne: 'ext1',
-        imageUrl: 'image1.jpg',
-        tag1: 'tag1',
-        tag2: 'tag2',
-        type: TypeEnum.anime,
-        dateCreate: DateTime.now(),
-      ),
-      Article(
-        //   _isLoading = true;
-        //   notifyListeners();
-
-        //   await Future.delayed(const Duration(seconds: 1));
-        //   _addMockArticles();
-
-        //   _isLoading = false;
-        //   notifyListeners();
-        // }
-        title: 'Article 2',
-        description: 'Description for Article 2',
-        idExterne: 'ext2',
-        imageUrl: 'image2.jpg',
-        tag1: 'tag1',
-        tag2: 'tag2',
-        type: TypeEnum.serie,
-        dateCreate: DateTime.now(),
-      ),
-    ];
-
-    _articles.addAll(mockData);
-  }
-
   void addArticle(Article article) {
     _articles.add(article);
     notifyListeners();
@@ -82,7 +45,7 @@ class AdminPanelViewModel extends ChangeNotifier {
     }
   }
 
-  void deleteArticle(int id) {
+  void deleteArticle(String id) {
     _articles.removeWhere((article) => article.idExterne == id);
     notifyListeners();
   }
@@ -105,3 +68,5 @@ Article articleFromJson(Map<String, dynamic> json) {
     dateCreate: DateTime.parse(json['dateCreate']),
   );
 }
+
+void generatePDF(Article article) {}
