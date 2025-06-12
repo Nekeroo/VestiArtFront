@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/ui/auth/register/register_viewmodel.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -52,7 +53,7 @@ class RegisterForm extends StatelessWidget {
                     : () async {
                       if (await viewModel.register()) {
                         if (context.mounted) {
-                          Navigator.of(context).pushReplacementNamed('/home');
+                          Navigator.of(context).pushReplacementNamed(AppRoutes.home);
                         }
                       }
                     },

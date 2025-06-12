@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/ui/common/theme/app_radius.dart';
-import 'package:vesti_art/ui/generation/prompting/prompting_page.dart';
 import '../home_viewmodel.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -80,14 +80,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               bottom: -20,
               child: ElevatedButton.icon(
                 onPressed:
-                    () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PromptingPage(),
-                        ),
-                      ),
-                    },
+                    () => Navigator.pushNamed(
+                      context,
+                      AppRoutes.creationPrompting,
+                    ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.secondary,
                   elevation: 0,
@@ -102,7 +98,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
-      actions: [IconButton(icon: const Icon(Icons.login), onPressed: () {})],
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.login),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.login),
+        ),
+      ],
     );
   }
 }

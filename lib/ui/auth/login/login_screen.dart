@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 import 'login_viewmodel.dart';
 import 'widgets/login_form.dart';
 
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 24),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/register');
+                    Navigator.of(context).pushNamed(AppRoutes.register);
                   },
                   child: const Text('Pas encore de compte ? S\'inscrire'),
                 ),

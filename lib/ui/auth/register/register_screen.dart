@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 import 'register_viewmodel.dart';
 import 'widgets/register_form.dart';
 
@@ -49,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 24),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
                   },
                   child: const Text('Déjà un compte ? Se connecter'),
                 ),

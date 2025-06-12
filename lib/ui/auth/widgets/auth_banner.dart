@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vesti_art/ui/auth/login/login_screen.dart';
-import 'package:vesti_art/ui/auth/register/register_screen.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 
 class AuthBanner extends StatefulWidget {
   final VoidCallback? onDismiss;
@@ -40,17 +39,11 @@ class _AuthBannerState extends State<AuthBanner>
   }
 
   void _navigateToLogin(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-    );
+    Navigator.pushNamed(context, AppRoutes.login);
   }
 
   void _navigateToRegister(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const RegisterScreen()),
-    );
+    Navigator.pushNamed(context, AppRoutes.register);
   }
 
   @override
