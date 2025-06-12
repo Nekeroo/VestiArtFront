@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
+import 'package:vesti_art/ui/common/widgets/responsive_layout_builder.dart';
 import 'register_viewmodel.dart';
 import 'widgets/register_form.dart';
 
@@ -22,38 +23,67 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
         appBar: AppBar(title: const Text('Inscription'), centerTitle: true),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 16),
-                Center(
-                  child: Text(
-                    'VestiArt',
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
+        body: ResponsiveLayoutBuilder(
+          maxWidth: 480,
+          builder: (context, constraints) {
+            final isDesktop = constraints.maxWidth > 480;
+            final horizontalPadding = isDesktop ? 48.0 : 24.0;
+            final verticalSpacing = isDesktop ? 32.0 : 24.0;
+            
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: horizontalPadding,
+                  vertical: 24.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: isDesktop ? 32.0 : 16.0),
+                    Center(
+                      child: Text(
+                        'VestiArt',
+                        style: theme.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                          fontSize: isDesktop ? 48.0 : null,
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(height: verticalSpacing * 2),
+                    Card(
+                      elevation: isDesktop ? 4.0 : 0.0,
+                      margin: isDesktop ? const EdgeInsets.all(8.0) : EdgeInsets.zero,
+                      shape: isDesktop
+                          ? RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            )
+                          : null,
+                      child: Padding(
+                        padding: isDesktop
+                            ? const EdgeInsets.all(32.0)
+                            : EdgeInsets.zero,
+                        child: const RegisterForm(),
+                      ),
+                    ),
+                    SizedBox(height: verticalSpacing),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+                      },
+                      child: const Text('Déjà un compte ? Se connecter'),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 48),
-                const RegisterForm(),
-                const SizedBox(height: 24),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
-                  },
-                  child: const Text('Déjà un compte ? Se connecter'),
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
