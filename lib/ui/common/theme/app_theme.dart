@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vesti_art/ui/common/theme/textfields_theme.dart';
 import 'button_theme.dart';
 import 'app_bar_theme.dart';
 
@@ -21,6 +22,7 @@ ThemeData _createTheme({required Brightness brightness}) {
     outlinedButtonTheme: AppButtonTheme.outlinedButtonTheme(colorScheme),
     textButtonTheme: AppButtonTheme.textButtonTheme(colorScheme),
     appBarTheme: AppBarStyles.appBarTheme(colorScheme),
+    inputDecorationTheme: TextfieldsTheme.inputDecorationTheme(colorScheme),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: <TargetPlatform, PageTransitionsBuilder>{
         TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),

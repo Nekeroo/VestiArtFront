@@ -7,6 +7,7 @@ class HomeViewModel extends ChangeNotifier {
   final List<Creation> _recentCreations = [];
   Creation? _featuredCreation;
   bool _isLoading = false;
+  bool _showAuthBanner = true;
 
   HomeViewModel();
 
@@ -14,6 +15,12 @@ class HomeViewModel extends ChangeNotifier {
   List<Creation> get recentCreations => _recentCreations;
   Creation? get featuredCreation => _featuredCreation;
   bool get isLoading => _isLoading;
+  bool get showAuthBanner => _showAuthBanner;
+  
+  void dismissAuthBanner() {
+    _showAuthBanner = false;
+    notifyListeners();
+  }
 
   Future<void> loadCreations() async {
     _isLoading = true;
