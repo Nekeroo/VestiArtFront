@@ -52,7 +52,7 @@ class ApiCreation extends ApiConfig {
     try {
       final queryParameters = {
         'start': start,
-        'nbElements': nbElements,
+        'nbElement': nbElements,
         'sortKey': sort.name,
       };
 
