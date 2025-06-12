@@ -8,7 +8,9 @@ import 'ui/common/theme/app_theme.dart';
 import 'ui/generation/prompting/prompting_page.dart';
 import 'ui/home/home_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthenticationService.instance.initialize();
   runApp(const MyApp());
 }
 

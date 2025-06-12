@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/reference_type.dart';
+import 'package:vesti_art/core/services/authentication_service.dart';
 import '../../core/models/creation.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -16,7 +17,12 @@ class HomeViewModel extends ChangeNotifier {
   Creation? get featuredCreation => _featuredCreation;
   bool get isLoading => _isLoading;
   bool get showAuthBanner => _showAuthBanner;
-  
+
+  void logout() {
+    AuthenticationService.instance.logout();
+    notifyListeners();
+  }
+
   void dismissAuthBanner() {
     _showAuthBanner = false;
     notifyListeners();

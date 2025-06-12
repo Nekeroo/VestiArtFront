@@ -13,7 +13,7 @@ abstract class ApiConfig {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          final userToken = AuthenticationService.instance.currentUser?.token;
+          final userToken = AuthenticationService.instance.token;
 
           options.headers['Content-Type'] = 'application/json';
           options.headers['Authorization'] = 'Bearer $userToken';

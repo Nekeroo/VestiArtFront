@@ -23,6 +23,39 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _viewModel = HomeViewModel();
     _loadData();
+    
+    // Vérifier les erreurs d'authentification
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAuthErrors();
+    });
+  }
+
+  void _checkAuthErrors() {
+    final authService = AuthenticationService.instance;
+    if (authService.hasAuthError) {
+      _showAuthErrorDialog();
+    }
+  }
+
+  void _showAuthErrorDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Erreur d\'authentification'),
+        content: const Text(
+          'Impossible de récupérer vos informations utilisateur. Veuillez vous reconnecter.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _loadData() async {

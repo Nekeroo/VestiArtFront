@@ -4,6 +4,7 @@ enum NetworkException {
   ideaNotFound,
   invalidCredentials,
   usernameAlreadyTaken,
+  unauthorized,
   serverError,
   timeout,
   other;
@@ -16,6 +17,8 @@ enum NetworkException {
         return "Nom d'utilisateur ou mot de passe invalide";
       case NetworkException.usernameAlreadyTaken:
         return "Nom d'utilisateur déjà pris";
+      case NetworkException.unauthorized:
+        return "Non autorisé";
       default:
         return "Une erreur inattendue s'est produite";
     }
@@ -51,6 +54,8 @@ enum NetworkException {
         return NetworkException.invalidCredentials;
       case 'Username is already taken!':
         return NetworkException.usernameAlreadyTaken;
+      case 'Unauthorized':
+        return NetworkException.unauthorized;
       default:
         return NetworkException.other;
     }

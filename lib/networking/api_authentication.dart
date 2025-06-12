@@ -31,7 +31,6 @@ class ApiAuthentication extends ApiConfig {
     } on DioException catch (_) {
       rethrow;
     } catch (e) {
-      print(e);
       throw sampleDioException;
     }
   }
