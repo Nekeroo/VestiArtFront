@@ -18,15 +18,59 @@ class AdminPanelView extends StatelessWidget {
                 if (viewModel.isLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                return const Text('Articles');
+
+                return ListView.builder(
+                  itemCount: viewModel.articles.length,
+                  itemBuilder: (context, index) {
+                    final article = viewModel.articles[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 100,
+                      ),
+                      child: ListTile(
+                        title: Text(article.title),
+                        subtitle: Text(article.description),
+                        leading: const Icon(
+                          Icons.picture_as_pdf,
+                          color: Colors.red,
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.download,
+                                color: Colors.blue,
+                              ),
+                              onPressed: () {
+                                // download pdf
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                              onPressed: () {
+                                // delete article
+                                print('Delete article: ${article.idExterne}');
+                              },
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          // preview pdf
+                        },
+                      ),
+                    );
+                  },
+                );
               },
             ),
-            // floatingActionButton: FloatingActionButton(
-            //   onPressed: () {
-            //     // Implement add new article functionality
-            //   },
-            //   child: const Icon(Icons.add),
-            // ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // add article
+              },
+              child: const Icon(Icons.add),
+            ),
           );
         },
       ),
