@@ -167,7 +167,7 @@ class _AuthBannerState extends State<AuthBanner>
         TextButton(
           onPressed: () => _navigateToLogin(context),
           style: TextButton.styleFrom(
-            backgroundColor: colorScheme.onPrimary.withValues(alpha: 51),
+            backgroundColor: colorScheme.primary,
             foregroundColor: colorScheme.onPrimary,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           ),
