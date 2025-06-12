@@ -49,12 +49,6 @@ class AuthenticationService extends ChangeNotifier {
     return _currentUser != null;
   }
 
-  bool canAccess(PermissionLevel requiredLevel) {
-    return _currentUser == null
-        ? false
-        : _currentUser!.role.index >= requiredLevel.index;
-  }
-
   Future<void> _saveToken(String token) async {
     await storage.write(key: storageKeyToken, value: token);
   }

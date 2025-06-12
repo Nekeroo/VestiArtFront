@@ -17,6 +17,7 @@ abstract class ApiConfig {
         onRequest: (options, handler) {
           options.headers['Content-Type'] = 'application/json';
           options.headers['Authorization'] = 'Bearer $userToken';
+          printRequestData(options);
           handler.next(options);
         },
         onResponse: (response, handler) {
@@ -36,6 +37,13 @@ abstract class ApiConfig {
         },
       ),
     );
+  }
+
+  void printRequestData(RequestOptions? options) {
+    if (options == null) return;
+    print("REQUEST ENDPOINT => ${options.path}");
+    print("REQUEST METHOD => ${options.method}");
+    print("REQUEST DATA => ${options.data}");
   }
 
   void printResponseData(Response? response) {

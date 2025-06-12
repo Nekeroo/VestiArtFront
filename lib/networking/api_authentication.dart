@@ -5,20 +5,27 @@ class ApiAuthentication extends ApiConfig {
   static ApiAuthentication instance = ApiAuthentication();
 
   Future<User> login(String username, String password) async {
-    final response = await dio.post(
-      '/auth/api/login',
-      data: {'username': username, 'password': password},
-    );
-
-    return User.fromJson(response.data);
+    try {
+      final response = await dio.post(
+        '/auth/api/login',
+        data: {'username': username, 'password': password},
+      );
+      return User.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<User> register(String username, String password) async {
-    final response = await dio.post(
-      '/auth/api/register',
-      data: {'username': username, 'password': password},
-    );
-
-    return User.fromJson(response.data);
+    try {
+      final response = await dio.post(
+        '/auth/api/register',
+        data: {'username': username, 'password': password},
+      );
+      printResponseData(response);
+      return User.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -4,16 +4,17 @@ enum UserRole { admin, user, guest }
 
 class User {
   final String username;
-  final UserRole role;
+  final List<UserRole> roles;
   final String token;
 
-  User({required this.username, required this.role, required this.token});
+  User({required this.username, required this.roles, required this.token});
 
   static User fromJson(Map<String, dynamic> json) {
     return User(
       username: json['username'],
-      role: UserRole.values[json['role']],
-      token: json['token'],
+      roles:
+          json['roles'].map<UserRole>((role) => UserRole.values[role]).toList(),
+      token: json['tokenJwt'],
     );
   }
 }

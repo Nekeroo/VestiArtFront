@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 enum NetworkException {
   ideaNotFound,
   invalidCredentials,
+  usernameAlreadyTaken,
   serverError,
   timeout,
   other;
@@ -13,6 +14,8 @@ enum NetworkException {
         return "L'idée n'a pas été trouvée";
       case NetworkException.invalidCredentials:
         return "Nom d'utilisateur ou mot de passe invalide";
+      case NetworkException.usernameAlreadyTaken:
+        return "Nom d'utilisateur déjà pris";
       default:
         return "Une erreur inattendue s'est produite";
     }
@@ -46,6 +49,8 @@ enum NetworkException {
         return NetworkException.ideaNotFound;
       case 'Invalid username or password':
         return NetworkException.invalidCredentials;
+      case 'Username is already taken!':
+        return NetworkException.usernameAlreadyTaken;
       default:
         return NetworkException.other;
     }
