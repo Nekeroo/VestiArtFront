@@ -69,9 +69,9 @@ class FeaturedCreationSection extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 Hero(
-                  tag: 'featured-${creation.uuid}',
+                  tag: 'featured-${creation.idExterne}',
                   child: ImageWithPlaceholder(
-                    imageUrl: creation.image,
+                    imageUrl: creation.imageUrl,
                     fit: BoxFit.fitHeight,
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -97,7 +97,7 @@ class FeaturedCreationSection extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          creation.name,
+                          creation.title,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class FeaturedCreationSection extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          creation.text,
+                          creation.description,
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white.withValues(alpha: 0.8),

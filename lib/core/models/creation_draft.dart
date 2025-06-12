@@ -1,4 +1,4 @@
-import 'package:vesti_art/core/models/reference_type.dart';
+import 'package:vesti_art/core/models/creation.dart';
 
 class CreationDraft {
   String uuid;
@@ -12,7 +12,7 @@ class CreationDraft {
     this.name = '',
     this.promptText = '',
     this.reference = '',
-    this.referenceType = ReferenceType.animes,
+    this.referenceType = ReferenceType.anime,
   }) : uuid = uuid ?? DateTime.now().millisecondsSinceEpoch.toString();
 
   bool get isValid {

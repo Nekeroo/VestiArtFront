@@ -110,7 +110,7 @@ class CreationDraftCard extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
-                                    draft.referenceType.displayName,
+                                    draft.referenceType.label,
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,

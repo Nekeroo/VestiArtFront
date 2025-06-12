@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/ui/generation/prompting/widgets/header.dart';
 import '../../../core/models/creation_draft.dart';
 import 'prompting_viewmodel.dart';
@@ -43,10 +42,7 @@ class _PromptingPageState extends State<PromptingPage> {
               () => _showCreationEditSheet(context, viewModel, isNew: true),
         ),
         Expanded(child: _buildCreationsList(context, viewModel)),
-        BottomActions(
-          viewModel: viewModel,
-          onGenerate: () => {},
-        ),
+        BottomActions(viewModel: viewModel, onGenerate: () => {}),
       ],
     );
   }

@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/networking/api_creation.dart';
-import 'article.model.dart';
 
 class AdminPanelViewModel extends ChangeNotifier {
-  final List<Article> _articles = [];
+  List<Creation> _articles = [];
   bool _isLoading = false;
 
-  List<Article> get articles => _articles;
+  List<Creation> get articles => _articles;
   bool get isLoading => _isLoading;
 
   Future<void> loadArticles() async {
     _isLoading = true;
     notifyListeners();
 
-    // await Future.delayed(const Duration(seconds: 1));
-    // _addMockArticles();
-
     try {
       _articles.clear();
-      final creations = await CreationApi().getAll();
-      for (var creation in creations) {
-        _articles.add(articleFromJson(creation));
-      }
+      _articles = await CreationApi().getAll();
     } catch (e) {
       print('Error loading articles: $e');
     }
@@ -32,12 +25,12 @@ class AdminPanelViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addArticle(Article article) {
+  void addArticle(Creation article) {
     _articles.add(article);
     notifyListeners();
   }
 
-  void editArticle(int id, Article updatedArticle) {
+  void editArticle(int id, Creation updatedArticle) {
     final index = _articles.indexWhere((article) => article.idExterne == id);
     if (index != -1) {
       _articles[index] = updatedArticle;
@@ -51,22 +44,4 @@ class AdminPanelViewModel extends ChangeNotifier {
   }
 }
 
-Article articleFromJson(Map<String, dynamic> json) {
-  print('articleFromJson: $json');
-  if (json.isEmpty) {
-    throw Exception('Empty JSON data');
-  }
-  print("Type of Article :" + TypeEnum.movie.toString());
-  return Article(
-    title: json['title'],
-    description: json['description'],
-    idExterne: json['idExterne'],
-    imageUrl: json['imageUrl'],
-    tag1: json['tag1'],
-    tag2: json['tag2'],
-    type: TypeEnum.fromString(json['type']),
-    dateCreate: DateTime.parse(json['dateCreate']),
-  );
-}
-
-void generatePDF(Article article) {}
+void generatePDF(Creation article) {}

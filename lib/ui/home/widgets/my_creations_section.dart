@@ -98,7 +98,7 @@ class MyCreationsSymbol extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ImageWithPlaceholder(
-                  imageUrl: creation.image,
+                  imageUrl: creation.imageUrl,
                   fit: BoxFit.cover,
                   width: 150,
                   height: 150,
@@ -109,7 +109,7 @@ class MyCreationsSymbol extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        creation.name,
+                        creation.title,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -119,7 +119,7 @@ class MyCreationsSymbol extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        creation.text,
+                        creation.description,
                         style: TextStyle(
                           fontSize: 12,
                           color: theme.colorScheme.onSurface.withValues(

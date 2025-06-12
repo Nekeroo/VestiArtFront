@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vesti_art/core/models/reference_type.dart';
+import 'package:vesti_art/core/models/creation.dart';
 import '../../../../core/models/creation_draft.dart';
 
 class CreationEditSheet extends StatefulWidget {
@@ -229,10 +229,10 @@ class _CreationEditSheetState extends State<CreationEditSheet> {
               isExpanded: true,
               hint: const Text('Sélectionnez un type'),
               items:
-                  ReferenceType.all.map((type) {
+                  ReferenceType.values.map((type) {
                     return DropdownMenuItem<ReferenceType>(
                       value: type,
-                      child: Text(type.displayName),
+                      child: Text(type.label),
                     );
                   }).toList(),
               onChanged: (value) {

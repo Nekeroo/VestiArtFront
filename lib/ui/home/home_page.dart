@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _viewModel = HomeViewModel();
     _loadData();
-    
+
     // Vérifier les erreurs d'authentification
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkAuthErrors();
@@ -41,20 +41,21 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: const Text('Erreur d\'authentification'),
-        content: const Text(
-          'Impossible de récupérer vos informations utilisateur. Veuillez vous reconnecter.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Erreur d\'authentification'),
+            content: const Text(
+              'Impossible de récupérer vos informations utilisateur. Veuillez vous reconnecter.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -123,12 +124,13 @@ class _HomePageState extends State<HomePage> {
           emptyMessage: 'Consultez les créations récentes des utilisateurs ici',
         ),
 
-        CreationCarousel(
-          creations: viewModel.myCreations,
-          title: 'Mes créations',
-          icon: Icons.person_rounded,
-          emptyMessage: 'Ajoutez votre première création',
-        ),
+        if (viewModel.myCreations.isNotEmpty)
+          CreationCarousel(
+            creations: viewModel.myCreations,
+            title: 'Mes créations',
+            icon: Icons.person_rounded,
+            emptyMessage: 'Ajoutez votre première création',
+          ),
 
         const SliverToBoxAdapter(child: SizedBox(height: 30)),
       ],
