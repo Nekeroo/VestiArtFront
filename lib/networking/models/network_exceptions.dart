@@ -42,7 +42,7 @@ enum NetworkException {
   }
 
   static NetworkException _getErrorFromBody(Map<String, dynamic> body) {
-    final message = body['message'] as String?;
+    final message = body['content'] as String?;
 
     switch (message) {
       case 'Idea not found':
@@ -56,3 +56,9 @@ enum NetworkException {
     }
   }
 }
+
+final DioException sampleDioException = DioException(
+  requestOptions: RequestOptions(),
+  type: DioExceptionType.badResponse,
+  error: NetworkException.other,
+);

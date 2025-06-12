@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:vesti_art/core/models/user.dart';
 import 'package:vesti_art/networking/api_config.dart';
+import 'package:vesti_art/networking/models/network_exceptions.dart';
 
 class ApiAuthentication extends ApiConfig {
   static ApiAuthentication instance = ApiAuthentication();
@@ -11,8 +13,11 @@ class ApiAuthentication extends ApiConfig {
         data: {'username': username, 'password': password},
       );
       return User.fromJson(response.data);
-    } catch (e) {
+    } on DioException catch (_) {
       rethrow;
+    } catch (e) {
+      print(e);
+      throw sampleDioException;
     }
   }
 
@@ -22,10 +27,12 @@ class ApiAuthentication extends ApiConfig {
         '/auth/api/register',
         data: {'username': username, 'password': password},
       );
-      printResponseData(response);
       return User.fromJson(response.data);
-    } catch (e) {
+    } on DioException catch (_) {
       rethrow;
+    } catch (e) {
+      print(e);
+      throw sampleDioException;
     }
   }
 }

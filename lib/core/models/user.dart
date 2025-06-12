@@ -1,6 +1,19 @@
-enum PermissionLevel { unknown, guest, user, admin }
+enum UserRole {
+  admin,
+  user,
+  guest;
 
-enum UserRole { admin, user, guest }
+  static List<UserRole> fromString(List<dynamic> roles) {
+    return roles.map((role) => _fromString(role)).toList();
+  }
+
+  static UserRole _fromString(dynamic role) {
+    return UserRole.values.firstWhere(
+      (r) => r.name == role['name'].toString().toLowerCase(),
+      orElse: () => UserRole.guest,
+    );
+  }
+}
 
 class User {
   final String username;
@@ -12,9 +25,8 @@ class User {
   static User fromJson(Map<String, dynamic> json) {
     return User(
       username: json['username'],
-      roles:
-          json['roles'].map<UserRole>((role) => UserRole.values[role]).toList(),
-      token: json['tokenJwt'],
+      roles: UserRole.fromString(json['roles'] as List<dynamic>),
+      token: json['token'],
     );
   }
 }
