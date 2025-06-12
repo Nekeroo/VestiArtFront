@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthenticationService()),
+        ChangeNotifierProvider(create: (_) => AuthenticationService.instance),
       ],
       child: Consumer<AuthenticationService>(
         builder: (ctx, authService, _) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/ui/auth/login/login_viewmodel.dart';
+import 'package:vesti_art/ui/auth/widgets/error_container.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -46,6 +47,8 @@ class LoginForm extends StatelessWidget {
             validator: viewModel.validatePassword,
           ),
           const SizedBox(height: 24),
+          if (viewModel.networkException != null)
+            ErrorContainer(message: viewModel.networkException!.message),
           ElevatedButton(
             onPressed:
                 viewModel.isLoading
