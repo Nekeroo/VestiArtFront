@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../core/models/creation.dart';
-import '../../common/widgets/image_with_placeholder.dart';
+import '../../../../core/models/creation.dart';
+import '../../../common/widgets/image_with_placeholder.dart';
 
 class RecentCreationsSection extends StatelessWidget {
   final List<Creation> creations;

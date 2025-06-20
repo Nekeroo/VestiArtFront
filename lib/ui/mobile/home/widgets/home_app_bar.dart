@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
+import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/ui/common/theme/app_radius.dart';
 import '../home_viewmodel.dart';
 
@@ -75,26 +76,24 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
-            Positioned(
-              right: 16,
-              bottom: -20,
-              child: ElevatedButton.icon(
-                onPressed:
-                    () => Navigator.pushNamed(
-                      context,
-                      AppRoutes.creationPrompting,
+            if (AuthenticationService.instance.isAuthenticated)
+              Positioned(
+                right: 16,
+                bottom: -20,
+                child: ElevatedButton.icon(
+                  onPressed:
+                      () => Navigator.pushNamed(context, AppRoutes.prompting),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.colorScheme.secondary,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
                   ),
+                  icon: const Icon(Icons.add, size: 18),
+                  label: const Text('Nouvelle création'),
                 ),
-                icon: const Icon(Icons.add, size: 18),
-                label: const Text('Nouvelle création'),
               ),
-            ),
           ],
         ),
       ),

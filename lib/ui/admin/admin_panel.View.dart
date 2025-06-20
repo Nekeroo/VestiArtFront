@@ -57,7 +57,9 @@ class AdminPanelView extends StatelessWidget {
                               icon: const Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
                                 //viewModel.deleteArticle(article.idExterne);
-                                print('Delete article: ${article.idExterne}');
+                                print(
+                                  'Delete article: ${article.idExterneImage}',
+                                );
                               },
                             ),
                           ],

@@ -5,10 +5,10 @@ class ErrorContainer extends StatelessWidget {
   final IconData icon;
 
   const ErrorContainer({
-    Key? key,
+    super.key,
     required this.message,
     this.icon = Icons.error_outline,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,12 @@ class ErrorContainer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: Theme.of(context).colorScheme.error,
-          ),
+          Icon(icon, color: Theme.of(context).colorScheme.error),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               message,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.error,
-              ),
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
         ],

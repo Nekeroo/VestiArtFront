@@ -6,7 +6,7 @@ import 'register_viewmodel.dart';
 import 'widgets/register_form.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -24,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
             final isDesktop = constraints.maxWidth > 480;
             final horizontalPadding = isDesktop ? 48.0 : 24.0;
             final verticalSpacing = isDesktop ? 32.0 : 24.0;
-            
+
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -59,23 +59,30 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: verticalSpacing * 2),
                     Card(
                       elevation: isDesktop ? 4.0 : 0.0,
-                      margin: isDesktop ? const EdgeInsets.all(8.0) : EdgeInsets.zero,
-                      shape: isDesktop
-                          ? RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            )
-                          : null,
+                      margin:
+                          isDesktop
+                              ? const EdgeInsets.all(8.0)
+                              : EdgeInsets.zero,
+                      shape:
+                          isDesktop
+                              ? RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              )
+                              : null,
                       child: Padding(
-                        padding: isDesktop
-                            ? const EdgeInsets.all(32.0)
-                            : EdgeInsets.zero,
+                        padding:
+                            isDesktop
+                                ? const EdgeInsets.all(32.0)
+                                : EdgeInsets.zero,
                         child: const RegisterForm(),
                       ),
                     ),
                     SizedBox(height: verticalSpacing),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(AppRoutes.login);
                       },
                       child: const Text('Déjà un compte ? Se connecter'),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 import '../../../core/models/creation_draft.dart';
 
 class PromptingViewModel extends ChangeNotifier {
@@ -43,5 +44,15 @@ class PromptingViewModel extends ChangeNotifier {
   bool areAllDraftsValid() {
     return _creationDrafts.isNotEmpty &&
         _creationDrafts.every((draft) => draft.isValid);
+  }
+
+  void generate(BuildContext context) {
+    if (areAllDraftsValid()) {
+      Navigator.pushNamed(
+        context,
+        AppRoutes.promptingLoading,
+        arguments: _creationDrafts,
+      );
+    }
   }
 }

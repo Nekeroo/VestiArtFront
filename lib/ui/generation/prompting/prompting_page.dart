@@ -42,7 +42,10 @@ class _PromptingPageState extends State<PromptingPage> {
               () => _showCreationEditSheet(context, viewModel, isNew: true),
         ),
         Expanded(child: _buildCreationsList(context, viewModel)),
-        BottomActions(viewModel: viewModel, onGenerate: () => {}),
+        BottomActions(
+          viewModel: viewModel,
+          onGenerate: () => viewModel.generate(context),
+        ),
       ],
     );
   }

@@ -5,7 +5,7 @@ import 'package:vesti_art/ui/auth/login/login_viewmodel.dart';
 import 'package:vesti_art/ui/auth/widgets/error_container.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class LoginForm extends StatelessWidget {
               prefixIcon: const Icon(Icons.lock_outline),
               suffixIcon: IconButton(
                 icon: Icon(
-                  viewModel.isPasswordVisible 
-                      ? Icons.visibility_off_outlined 
+                  viewModel.isPasswordVisible
+                      ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined,
                 ),
                 onPressed: viewModel.togglePasswordVisibility,
@@ -56,7 +56,9 @@ class LoginForm extends StatelessWidget {
                     : () async {
                       if (await viewModel.login()) {
                         if (context.mounted) {
-                          Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+                          Navigator.of(
+                            context,
+                          ).pushReplacementNamed(AppRoutes.home);
                         }
                       }
                     },

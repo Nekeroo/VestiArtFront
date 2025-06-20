@@ -18,7 +18,6 @@ class CreationEditSheet extends StatefulWidget {
 
 class _CreationEditSheetState extends State<CreationEditSheet> {
   late String _name;
-  late String _promptText;
   late String _reference;
   late ReferenceType _referenceType;
   bool _attemptedSave = false;
@@ -26,16 +25,14 @@ class _CreationEditSheetState extends State<CreationEditSheet> {
   @override
   void initState() {
     super.initState();
-    _name = widget.draft.name;
-    _promptText = widget.draft.promptText;
+    _name = widget.draft.person;
     _reference = widget.draft.reference;
-    _referenceType = widget.draft.referenceType;
+    _referenceType = widget.draft.type;
   }
 
   bool get _isNameValid => _name.isNotEmpty;
-  bool get _isPromptValid => _promptText.isNotEmpty;
   bool get _isReferenceValid => _reference.isNotEmpty;
-  bool get _isFormValid => _isNameValid && _isPromptValid && _isReferenceValid;
+  bool get _isFormValid => _isNameValid && _isReferenceValid;
 
   @override
   Widget build(BuildContext context) {
@@ -97,23 +94,6 @@ class _CreationEditSheetState extends State<CreationEditSheet> {
               tooltip: 'Entrez un nom pour identifier votre création',
             ),
             const SizedBox(height: 12),
-            _buildTextField(
-              label: 'Prompt',
-              hint: 'Décrivez votre création en détail',
-              initialValue: _promptText,
-              onChanged: (value) {
-                setState(() {
-                  _promptText = value;
-                });
-              },
-              maxLines: 3,
-              icon: Icons.description,
-              showError: _attemptedSave && !_isPromptValid,
-              errorText: 'Veuillez entrer un prompt',
-              tooltip:
-                  'Décrivez votre création avec suffisamment de détails pour guider la génération',
-            ),
-            const SizedBox(height: 12),
             _buildReferenceTypeDropdown(),
             const SizedBox(height: 12),
             _buildTextField(
@@ -153,10 +133,9 @@ class _CreationEditSheetState extends State<CreationEditSheet> {
                       if (_isFormValid) {
                         final updatedDraft = CreationDraft(
                           uuid: widget.draft.uuid,
-                          name: _name,
-                          promptText: _promptText,
+                          person: _name,
                           reference: _reference,
-                          referenceType: _referenceType,
+                          type: _referenceType,
                         );
                         widget.onSave(updatedDraft);
                         Navigator.pop(context, true);

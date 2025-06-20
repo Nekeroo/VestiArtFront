@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/networking/api_creation.dart';
-import '../../core/models/creation.dart';
+import '../../../core/models/creation.dart';
 
 class HomeViewModel extends ChangeNotifier {
   List<Creation> _myCreations = [];

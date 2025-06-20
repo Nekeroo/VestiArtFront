@@ -2,5 +2,8 @@ class AppRoutes {
   static const home = '/';
   static const login = '/login';
   static const register = '/register';
-  static const creationPrompting = '/creation-prompting';
+  static const creationDetails = '/creation/details';
+  static const prompting = '/prompting';
+  static const promptingLoading = '/prompting/loading';
+  static const promptingDetails = '/prompting/details';
 }

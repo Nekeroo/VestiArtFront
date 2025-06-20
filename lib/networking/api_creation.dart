@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:vesti_art/core/models/creation.dart';
+import 'package:vesti_art/core/models/creation_draft.dart';
 import 'package:vesti_art/networking/api_config.dart';
 import 'package:vesti_art/networking/models/network_exceptions.dart';
 
@@ -60,10 +61,25 @@ class ApiCreation extends ApiConfig {
         'idea/retrieve',
         queryParameters: queryParameters,
       );
+      return Creation.fromJsonList(response.data['ideas']);
+    } on DioException catch (_) {
+      rethrow;
+    } catch (e) {
+      throw sampleDioException;
+    }
+  }
+
+  Future<List<Creation>> create(List<CreationDraft> creations) async {
+    try {
+      final response = await dio.post(
+        '/innovation/create',
+        data: creations.toJson(),
+      );
       return Creation.fromJsonList(response.data);
     } on DioException catch (_) {
       rethrow;
     } catch (e) {
+      print(e);
       throw sampleDioException;
     }
   }
