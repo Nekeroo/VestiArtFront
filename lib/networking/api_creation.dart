@@ -60,7 +60,8 @@ class ApiCreation extends ApiConfig {
         'idea/retrieve',
         queryParameters: queryParameters,
       );
-      return Creation.fromJsonList(response.data);
+
+      return Creation.fromJsonList(response.data["ideas"]);
     } on DioException catch (_) {
       rethrow;
     } catch (e) {

@@ -30,7 +30,7 @@ class AdminPanelView extends StatelessWidget {
                       ),
                       child: ListTile(
                         title: Text(article.title),
-                        subtitle: Text(article.description),
+                        subtitle: Text(article.dateCreate.toString()),
                         leading: IconButton(
                           icon: const Icon(
                             Icons.picture_as_pdf,
