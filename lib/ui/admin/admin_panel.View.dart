@@ -1,6 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vesti_art/core/models/creation.dart';
+import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/admin/admin_panel.ViewModel.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+
+void showDeleteConfirmation(
+  BuildContext context,
+  Creation article,
+  AdminPanelViewModel viewModel,
+) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Delete Article'),
+        content: Text(
+          'Are you sure you want to delete the article ${article.title}?',
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            onPressed: () {
+              viewModel.deleteArticle(article.idExterne);
+              ApiCreation.instance.delete(article.idExterne);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 class AdminPanelView extends StatelessWidget {
   const AdminPanelView({super.key});
@@ -37,7 +74,20 @@ class AdminPanelView extends StatelessWidget {
                             color: Colors.red,
                           ),
                           onPressed: () {
-                            // download pdf
+                            // PDFView(
+                            //   filePath: article.idExternePdf,
+                            //   enableSwipe: true,
+                            //   swipeHorizontal: true,
+                            //   autoSpacing: false,
+                            //   pageFling: false,
+                            //   onError: (error) {
+                            //     print(error.toString());
+                            //   },
+                            //   onPageError: (page, error) {
+                            //     print('$page: ${error.toString()}');
+                            //   },
+                            // );
+                            // preview pdf
                           },
                         ),
 
@@ -55,10 +105,12 @@ class AdminPanelView extends StatelessWidget {
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () {
-                                //viewModel.deleteArticle(article.idExterne);
-                                print('Delete article: ${article.idExterne}');
-                              },
+                              onPressed:
+                                  () => showDeleteConfirmation(
+                                    context,
+                                    article,
+                                    viewModel,
+                                  ),
                             ),
                           ],
                         ),

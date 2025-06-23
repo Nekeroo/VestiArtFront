@@ -68,4 +68,14 @@ class ApiCreation extends ApiConfig {
       throw sampleDioException;
     }
   }
+
+  Future<void> delete(String id) async {
+    try {
+      await dio.delete('idea/delete/$id');
+    } on DioException catch (_) {
+      rethrow;
+    } catch (e) {
+      throw sampleDioException;
+    }
+  }
 }

@@ -26,6 +26,7 @@ class Creation {
   final String title;
   final String description;
   final String idExterne;
+  final String idExternePdf;
   final String imageUrl;
   final String person;
   final String reference;
@@ -36,6 +37,7 @@ class Creation {
     required this.title,
     required this.description,
     required this.idExterne,
+    required this.idExternePdf,
     required this.imageUrl,
     required this.person,
     required this.reference,
@@ -72,6 +74,7 @@ class Creation {
       title: json['title'] ?? 'No Title',
       description: json['description'] ?? 'No Description',
       idExterne: json['idExterneImage'] ?? 'No ID',
+      idExternePdf: json['idExternePdf'] ?? 'No PDF ID',
       imageUrl: json['imageUrl'] ?? 'No Image URL',
       person: json['tag1'] ?? 'No Person',
       reference: json['tag2'] ?? 'No Reference',
