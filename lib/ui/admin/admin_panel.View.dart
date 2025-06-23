@@ -90,13 +90,15 @@ class _AdminPanelViewState extends State<AdminPanelView> {
                             color: Colors.red,
                           ),
                           onPressed: () {
-                            print('Opening PDF for article: ${article.title}');
+                            print(
+                              'Opening PDF for article: ${article.title} ${article.idExternePdf}',
+                            );
                             // Navigate to PDF viewer
                             Navigator.of(context).pushNamed(
                               AppRoutes.pdfViewer,
                               arguments: article,
                             );
-                            print('PDF path: ${article.idExternePdf}');
+                            print('PDF path: ${article.pdfUrl}');
 
                             // PDFView(
                             //   filePath: article.idExternePdf,
