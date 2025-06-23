@@ -10,7 +10,8 @@ enum Sort {
   title,
   type,
   person,
-  reference;
+  reference,
+  mine;
 
   String get name {
     switch (this) {
@@ -24,6 +25,8 @@ enum Sort {
         return 'tag1';
       case Sort.reference:
         return 'tag2';
+      case Sort.mine:
+        return 'mine';
     }
   }
 
@@ -39,6 +42,8 @@ enum Sort {
         return 'Personnage';
       case Sort.reference:
         return 'Référence';
+      case Sort.mine:
+        return 'Mes Créations';
     }
   }
 }
@@ -89,6 +94,23 @@ class ApiCreation extends ApiConfig {
       );
 
       return Creation.fromJsonList(response.data["ideas"]);
+    } on DioException catch (_) {
+      rethrow;
+    } catch (e) {
+      throw sampleDioException;
+    }
+  }
+
+  Future<CreationsResponse> getMe({int start = 0, int nbElements = 10}) async {
+    try {
+      final queryParameters = {'start': start, 'nbElement': nbElements};
+
+      final response = await dio.get(
+        'idea/retrieve/mine',
+        queryParameters: queryParameters,
+      );
+
+      return CreationsResponse.fromJson(response.data);
     } on DioException catch (_) {
       rethrow;
     } catch (e) {

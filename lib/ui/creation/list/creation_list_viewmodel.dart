@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/networking/api_creation.dart';
+import 'package:vesti_art/networking/models/creations_response.dart';
 import 'package:vesti_art/networking/models/network_exceptions.dart';
 
 class CreationListViewModel extends ChangeNotifier {
@@ -30,11 +31,10 @@ class CreationListViewModel extends ChangeNotifier {
     if (fromStart) _start = 0;
 
     try {
-      final response = await ApiCreation().getAllPagined(
-        sort: sort,
-        start: _start,
-        nbElements: _nbElements,
-      );
+      final response =
+          sort == Sort.mine
+              ? await loadMyCreations()
+              : await loadSortedCreations();
 
       if (fromStart) {
         _creations = response.creations;
@@ -49,6 +49,26 @@ class CreationListViewModel extends ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  Future<CreationsResponse> loadMyCreations() async {
+    try {
+      return await ApiCreation().getMe(start: _start, nbElements: _nbElements);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<CreationsResponse> loadSortedCreations() async {
+    try {
+      return await ApiCreation().getAllPagined(
+        sort: sort,
+        start: _start,
+        nbElements: _nbElements,
+      );
+    } catch (_) {
+      rethrow;
     }
   }
 
