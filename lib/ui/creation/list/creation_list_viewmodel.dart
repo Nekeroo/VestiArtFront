@@ -15,6 +15,7 @@ class CreationListViewModel extends ChangeNotifier {
   bool _isLoading = false;
   NetworkException? _error;
   int _start = 0;
+  bool hasNextPage = true;
   final int _nbElements = 20;
 
   List<Creation> get creations => List.unmodifiable(_creations);
@@ -22,23 +23,26 @@ class CreationListViewModel extends ChangeNotifier {
   NetworkException? get error => _error;
 
   Future<void> loadCreations({bool fromStart = true}) async {
+    if (!hasNextPage) return;
     _isLoading = true;
     notifyListeners();
 
     if (fromStart) _start = 0;
 
     try {
-      final creations = await ApiCreation().getAll(
+      final response = await ApiCreation().getAllPagined(
         sort: sort,
         start: _start,
         nbElements: _nbElements,
       );
 
       if (fromStart) {
-        _creations = creations;
+        _creations = response.creations;
       } else {
-        _creations.addAll(creations);
+        _creations.addAll(response.creations);
       }
+
+      hasNextPage = response.nextKey != null;
     } on DioException catch (e) {
       _error = e.error as NetworkException;
     } finally {

@@ -64,6 +64,7 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const LoginPage());
 
     case AppRoutes.register:
+      if (kIsWeb) return _buildNotFoundRoute();
       return MaterialPageRoute(builder: (context) => const RegisterPage());
 
     case AppRoutes.creationDetails:
@@ -96,4 +97,12 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
     default:
       return null;
   }
+}
+
+MaterialPageRoute _buildNotFoundRoute() {
+  return MaterialPageRoute(
+    builder:
+        (context) =>
+            const Scaffold(body: Center(child: Text('Page non trouvée'))),
+  );
 }

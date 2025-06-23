@@ -5,6 +5,7 @@ enum NetworkException {
   invalidCredentials,
   usernameAlreadyTaken,
   unauthorized,
+  shouldBeAdmin,
   serverError,
   timeout,
   other;
@@ -19,6 +20,8 @@ enum NetworkException {
         return "Nom d'utilisateur déjà pris";
       case NetworkException.unauthorized:
         return "Non autorisé";
+      case NetworkException.shouldBeAdmin:
+        return "Vous devez être administrateur pour faire cette action";
       default:
         return "Une erreur inattendue s'est produite";
     }
@@ -66,4 +69,10 @@ final DioException sampleDioException = DioException(
   requestOptions: RequestOptions(),
   type: DioExceptionType.badResponse,
   error: NetworkException.other,
+);
+
+final DioException sampleDioExceptionAdmin = DioException(
+  requestOptions: RequestOptions(),
+  type: DioExceptionType.badResponse,
+  error: NetworkException.shouldBeAdmin,
 );
