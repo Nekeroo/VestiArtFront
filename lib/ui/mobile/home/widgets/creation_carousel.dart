@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/models/creation.dart';
-import '../../common/widgets/image_with_placeholder.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
+import '../../../../core/models/creation.dart';
+import '../../../common/widgets/image_with_placeholder.dart';
 
 class CreationCarousel extends StatelessWidget {
   final List<Creation> creations;
@@ -15,6 +16,12 @@ class CreationCarousel extends StatelessWidget {
     required this.icon,
     required this.emptyMessage,
   });
+
+  _navigateToDetails(BuildContext context, Creation creation) {
+    Navigator.of(
+      context,
+    ).pushNamed(AppRoutes.creationDetails, arguments: creation);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +161,7 @@ class CreationCarousel extends StatelessWidget {
         child: Material(
           color: theme.cardColor,
           child: InkWell(
-            onTap: () => {},
+            onTap: () => _navigateToDetails(context, creation),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

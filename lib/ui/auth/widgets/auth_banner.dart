@@ -4,7 +4,7 @@ import 'package:vesti_art/core/routing/app_routes.dart';
 class AuthBanner extends StatefulWidget {
   final VoidCallback? onDismiss;
 
-  const AuthBanner({Key? key, this.onDismiss}) : super(key: key);
+  const AuthBanner({super.key, this.onDismiss});
 
   @override
   State<AuthBanner> createState() => _AuthBannerState();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../core/models/creation.dart';
-import '../../common/widgets/image_with_placeholder.dart';
+import '../../../../core/models/creation.dart';
+import '../../../common/widgets/image_with_placeholder.dart';
 
 class FeaturedCreationSection extends StatelessWidget {
   final Creation creation;
@@ -69,7 +69,7 @@ class FeaturedCreationSection extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 Hero(
-                  tag: 'featured-${creation.idExterne}',
+                  tag: 'featured-${creation.idExterneImage}',
                   child: ImageWithPlaceholder(
                     imageUrl: creation.imageUrl,
                     fit: BoxFit.fitHeight,

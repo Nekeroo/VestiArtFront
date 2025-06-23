@@ -18,6 +18,7 @@ class AuthenticationService extends ChangeNotifier {
       }
     } catch (e) {
       _hasAuthError = true;
+      _clearToken();
       notifyListeners();
     }
   }

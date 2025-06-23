@@ -31,7 +31,9 @@ class AdminPanelViewModel extends ChangeNotifier {
   }
 
   void editArticle(int id, Creation updatedArticle) {
-    final index = _articles.indexWhere((article) => article.idExterne == id);
+    final index = _articles.indexWhere(
+      (article) => article.idExterneImage == id,
+    );
     if (index != -1) {
       _articles[index] = updatedArticle;
       notifyListeners();
@@ -39,7 +41,7 @@ class AdminPanelViewModel extends ChangeNotifier {
   }
 
   void deleteArticle(String id) {
-    _articles.removeWhere((article) => article.idExterne == id);
+    _articles.removeWhere((article) => article.idExterneImage == id);
     notifyListeners();
   }
 }

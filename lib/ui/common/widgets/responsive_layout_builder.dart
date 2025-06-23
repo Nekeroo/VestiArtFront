@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 class ResponsiveLayoutBuilder extends StatelessWidget {
   /// La fonction builder qui reçoit le contexte et les contraintes de taille
   final Widget Function(BuildContext, BoxConstraints) builder;
-  
+
   /// La largeur maximale du contenu sur grand écran
   final double maxWidth;
-  
+
   const ResponsiveLayoutBuilder({
-    Key? key, 
+    super.key,
     required this.builder,
     this.maxWidth = 600,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

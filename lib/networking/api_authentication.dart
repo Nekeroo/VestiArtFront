@@ -10,7 +10,7 @@ class ApiAuthentication extends ApiConfig {
     try {
       final response = await dio.post(
         '/auth/api/login',
-        data: {'username': username, 'password': password},
+        data: {'username': username.trim(), 'password': password.trim()},
       );
       return User.fromJson(response.data);
     } on DioException catch (_) {
@@ -25,7 +25,7 @@ class ApiAuthentication extends ApiConfig {
     try {
       final response = await dio.post(
         '/auth/api/register',
-        data: {'username': username, 'password': password},
+        data: {'username': username.trim(), 'password': password.trim()},
       );
       return User.fromJson(response.data);
     } on DioException catch (_) {

@@ -5,7 +5,7 @@ import 'package:vesti_art/ui/auth/register/register_viewmodel.dart';
 import 'package:vesti_art/ui/auth/widgets/error_container.dart';
 
 class RegisterForm extends StatelessWidget {
-  const RegisterForm({Key? key}) : super(key: key);
+  const RegisterForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class RegisterForm extends StatelessWidget {
               prefixIcon: const Icon(Icons.lock_outline),
               suffixIcon: IconButton(
                 icon: Icon(
-                  viewModel.isPasswordVisible 
-                      ? Icons.visibility_off_outlined 
+                  viewModel.isPasswordVisible
+                      ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined,
                 ),
                 onPressed: viewModel.togglePasswordVisibility,
@@ -56,7 +56,9 @@ class RegisterForm extends StatelessWidget {
                     : () async {
                       if (await viewModel.register()) {
                         if (context.mounted) {
-                          Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+                          Navigator.of(
+                            context,
+                          ).pushReplacementNamed(AppRoutes.home);
                         }
                       }
                     },

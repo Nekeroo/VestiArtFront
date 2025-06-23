@@ -6,7 +6,7 @@ import 'login_viewmodel.dart';
 import 'widgets/login_form.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return ChangeNotifierProvider.value(
       value: _viewModel,
       child: Scaffold(
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
             final isDesktop = constraints.maxWidth > 480;
             final horizontalPadding = isDesktop ? 48.0 : 24.0;
             final verticalSpacing = isDesktop ? 32.0 : 24.0;
-            
+
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -59,16 +59,21 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: verticalSpacing * 2),
                     Card(
                       elevation: isDesktop ? 4.0 : 0.0,
-                      margin: isDesktop ? const EdgeInsets.all(8.0) : EdgeInsets.zero,
-                      shape: isDesktop
-                          ? RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            )
-                          : null,
+                      margin:
+                          isDesktop
+                              ? const EdgeInsets.all(8.0)
+                              : EdgeInsets.zero,
+                      shape:
+                          isDesktop
+                              ? RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              )
+                              : null,
                       child: Padding(
-                        padding: isDesktop
-                            ? const EdgeInsets.all(32.0)
-                            : EdgeInsets.zero,
+                        padding:
+                            isDesktop
+                                ? const EdgeInsets.all(32.0)
+                                : EdgeInsets.zero,
                         child: const LoginForm(),
                       ),
                     ),

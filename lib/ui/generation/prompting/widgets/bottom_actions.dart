@@ -67,21 +67,9 @@ class BottomActions extends StatelessWidget {
             height: 54,
             child: ElevatedButton.icon(
               onPressed: viewModel.areAllDraftsValid() ? onGenerate : null,
-              icon:
-                  viewModel.isGenerating
-                      ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                      )
-                      : const Icon(Icons.auto_awesome),
+              icon: const Icon(Icons.auto_awesome),
               label: Text(
-                viewModel.isGenerating
-                    ? 'Génération en cours...'
-                    : 'Générer les créations',
+                'Générer les créations',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(

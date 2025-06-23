@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum ReferenceType {
   movie,
   serie,
@@ -14,9 +16,31 @@ enum ReferenceType {
     }
   }
 
+  Color get color {
+    switch (this) {
+      case ReferenceType.movie:
+        return Colors.redAccent;
+      case ReferenceType.serie:
+        return Colors.blueAccent;
+      case ReferenceType.anime:
+        return Colors.purpleAccent;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case ReferenceType.movie:
+        return Icons.movie;
+      case ReferenceType.serie:
+        return Icons.tv;
+      case ReferenceType.anime:
+        return Icons.animation;
+    }
+  }
+
   static ReferenceType fromString(String value) {
     return ReferenceType.values.firstWhere(
-      (e) => e.toString().split('.').last.toLowerCase() == value.toLowerCase(),
+      (e) => e.name.toLowerCase() == value.toLowerCase(),
       orElse: () => ReferenceType.movie,
     );
   }
@@ -25,9 +49,10 @@ enum ReferenceType {
 class Creation {
   final String title;
   final String description;
-  final String idExterne;
-  final String idExternePdf;
+  final String idExterneImage;
+  final String? idExternePdf;
   final String imageUrl;
+  final String? pdfUrl;
   final String person;
   final String reference;
   final ReferenceType type;
@@ -36,9 +61,10 @@ class Creation {
   Creation({
     required this.title,
     required this.description,
-    required this.idExterne,
+    required this.idExterneImage,
     required this.idExternePdf,
     required this.imageUrl,
+    required this.pdfUrl,
     required this.person,
     required this.reference,
     required this.type,
@@ -61,41 +87,29 @@ class Creation {
     return nullFields;
   }
 
-  static Creation fromJson(Map<String, dynamic> json) {
-    List<String> nullFields = checkNullFields(json);
-
-    if (nullFields.isNotEmpty) {
-      print(
-        'Invalid JSON data. The following fields are null: ${nullFields.join(", ")}',
+  static Creation? fromJson(Map<String, dynamic> json) {
+    try {
+      return Creation(
+        title: json['title'],
+        description: json['description'],
+        idExterneImage: json['idExterneImage'],
+        idExternePdf: json['idExternePdf'],
+        imageUrl: json['imageUrl'],
+        pdfUrl: json['pdfUrl'],
+        person: json['tag1'],
+        reference: json['tag2'],
+        type: ReferenceType.fromString(json['type']),
+        dateCreate: DateTime.parse(json['dateCreate']),
       );
+    } catch (e) {
+      return null;
     }
-
-    return Creation(
-      title: json['title'] ?? 'No Title',
-      description: json['description'] ?? 'No Description',
-      idExterne: json['idExterneImage'] ?? 'No ID',
-      idExternePdf: json['idExternePdf'] ?? 'No PDF ID',
-      imageUrl: json['imageUrl'] ?? 'No Image URL',
-      person: json['tag1'] ?? 'No Person',
-      reference: json['tag2'] ?? 'No Reference',
-      type: ReferenceType.fromString(json['type'] ?? 'movie'),
-      dateCreate: DateTime.parse(
-        json['dateCreate'] ?? DateTime.now().toIso8601String(),
-      ),
-    );
   }
 
-  static List<Creation> fromJsonList(List<dynamic> jsonList) {
-    print("Parsing Creation List from JSON: ${jsonList.length}");
-    for (var json in jsonList) {
-      print("ICI");
-      if (json["idExternePdf"] == null) {
-        json["idExternePdf"] = "No ID";
-      } else if (json["pdfUrl"] == null) {
-        json["pdfUrl"] = "No PDF URL";
-      }
-      print("Parsing Creation from JSON: ${Creation.fromJson(json)}");
-    }
-    return jsonList.map((json) => Creation.fromJson(json)).toList();
+  static List<Creation> fromJsonList(List<dynamic> data) {
+    return data
+        .map((json) => Creation.fromJson(json))
+        .whereType<Creation>()
+        .toList();
   }
 }
