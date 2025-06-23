@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/core/models/creation_draft.dart';
 import 'package:vesti_art/networking/api_creation.dart';
-import 'package:vesti_art/ui/creation/details/prompting_details_page.dart';
+import 'package:vesti_art/ui/creation/details/creation_details_page.dart';
 import 'package:vesti_art/ui/creation/list/creation_list_page.dart';
 import 'package:vesti_art/ui/generation/details/prompting_details_page.dart';
 import 'package:vesti_art/ui/generation/loading/loading_page.dart';

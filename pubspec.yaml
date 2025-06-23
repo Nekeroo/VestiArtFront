@@ -35,8 +35,8 @@ dependencies:
   flutter_svg: ^2.0.10+1
   dio: ^5.8.0+1
   flutter_secure_storage: ^9.2.4
-  syncfusion_flutter_pdfviewer: ^29.2.10
   markdown_widget: ^2.3.2+8
+  syncfusion_flutter_pdfviewer: ^29.2.11
 
 dev_dependencies:
   flutter_test:
