@@ -7,4 +7,5 @@ class AppRoutes {
   static const prompting = '/prompting';
   static const promptingLoading = '/prompting/loading';
   static const promptingDetails = '/prompting/details';
+  static const notFound = '/not-found';
 }
