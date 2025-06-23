@@ -3,6 +3,7 @@ import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/ui/common/theme/app_radius.dart';
 import '../home_viewmodel.dart';
+import 'logout_dialog.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final HomeViewModel viewModel;
@@ -97,7 +98,13 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
-      actions: [],
+      actions: [
+        if (AuthenticationService.instance.isAuthenticated)
+          IconButton(
+            icon: const Icon(Icons.manage_accounts),
+            onPressed: () => LogoutDialog.show(context, viewModel),
+          ),
+      ],
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:vesti_art/ui/creation/details/widgets/reference_type_chip.dart';
 class CreationDetailsPage extends StatelessWidget {
   final Creation? creation;
 
-  const CreationDetailsPage({Key? key, this.creation}) : super(key: key);
+  const CreationDetailsPage({super.key, this.creation});
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +16,15 @@ class CreationDetailsPage extends StatelessWidget {
     }
 
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         title: Text(creation!.title),
         centerTitle: false,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.ios_share),
-            onPressed: () {}, 
-          ),
-          IconButton(
-            icon: const Icon(Icons.file_download),
-            onPressed: () {}, 
-          ),
+          IconButton(icon: const Icon(Icons.ios_share), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.file_download), onPressed: () {}),
         ],
       ),
       body: CustomScrollView(
@@ -57,10 +51,13 @@ class CreationDetailsPage extends StatelessWidget {
                               if (loadingProgress == null) return child;
                               return Center(
                                 child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
+                                  value:
+                                      loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress
+                                                  .cumulativeBytesLoaded /
+                                              loadingProgress
+                                                  .expectedTotalBytes!
+                                          : null,
                                 ),
                               );
                             },
@@ -78,13 +75,14 @@ class CreationDetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  
+
                   // Metadata avec léger fond
                   Container(
                     margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceVariant.withValues(alpha: 0.5),
+                      color: theme.colorScheme.surfaceContainerHighest
+                          .withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -162,7 +160,9 @@ class CreationDetailsPage extends StatelessWidget {
                             config: MarkdownConfig(
                               configs: [
                                 PConfig(
-                                  textStyle: theme.textTheme.bodyLarge ?? const TextStyle(),
+                                  textStyle:
+                                      theme.textTheme.bodyLarge ??
+                                      const TextStyle(),
                                 ),
                                 LinkConfig(
                                   style: TextStyle(
@@ -173,7 +173,10 @@ class CreationDetailsPage extends StatelessWidget {
                                 CodeConfig(
                                   style: TextStyle(
                                     fontFamily: 'monospace',
-                                    backgroundColor: theme.colorScheme.surfaceVariant,
+                                    backgroundColor:
+                                        theme
+                                            .colorScheme
+                                            .surfaceContainerHighest,
                                     color: theme.colorScheme.onSurfaceVariant,
                                   ),
                                 ),
@@ -186,8 +189,8 @@ class CreationDetailsPage extends StatelessWidget {
                       ),
                     ),
 
-
-                  if (creation!.idExternePdf != null && creation!.idExternePdf!.isNotEmpty)
+                  if (creation!.idExternePdf != null &&
+                      creation!.idExternePdf!.isNotEmpty)
                     Container(
                       margin: const EdgeInsets.all(16),
                       padding: const EdgeInsets.all(16),
@@ -214,7 +217,9 @@ class CreationDetailsPage extends StatelessWidget {
                             icon: const Icon(Icons.picture_as_pdf),
                             label: const Text('View Reference PDF'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: creation!.type.color.withValues(alpha: 0.1),
+                              backgroundColor: creation!.type.color.withValues(
+                                alpha: 0.1,
+                              ),
                               foregroundColor: creation!.type.color,
                             ),
                           ),
@@ -230,7 +235,7 @@ class CreationDetailsPage extends StatelessWidget {
       ),
     );
   }
-  
+
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }
