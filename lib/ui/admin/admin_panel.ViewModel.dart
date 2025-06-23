@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/creation.dart';
+import 'package:vesti_art/core/models/loading_state.dart';
 import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/networking/models/network_exceptions.dart';
 
 class AdminPanelViewModel extends ChangeNotifier {
   List<Creation> _articles = [];
   bool _isLoading = false;
-  bool _canContinue = true;
+  LoadingState _loadingState = LoadingState.none;
   NetworkException? _error;
 
   List<Creation> get articles => _articles;
@@ -16,7 +17,7 @@ class AdminPanelViewModel extends ChangeNotifier {
   }
 
   bool get isLoading => _isLoading;
-  bool get canContiunue => _canContinue;
+  LoadingState get loadingState => _loadingState;
   NetworkException? get error => _error;
 
   Future<void> loadArticles() async {
@@ -51,16 +52,19 @@ class AdminPanelViewModel extends ChangeNotifier {
   }
 
   Future<void> deleteArticle(String id, BuildContext context) async {
-    _canContinue = false;
+    _loadingState = LoadingState.loading;
+    _error = null;
     notifyListeners();
+
     try {
       await ApiCreation.instance.delete(id);
       _articles.removeWhere((article) => article.idExternePdf == id);
-      _canContinue = true;
+      _loadingState = LoadingState.success;
+      notifyListeners();
     } catch (e) {
       print('Error deleting article: $e');
       _error = e as NetworkException?;
-    } finally {
+      _loadingState = LoadingState.error;
       notifyListeners();
     }
   }

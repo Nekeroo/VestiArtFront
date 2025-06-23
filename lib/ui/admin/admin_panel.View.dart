@@ -1,45 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vesti_art/core/models/creation.dart';
-import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/admin/admin_panel.ViewModel.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:vesti_art/ui/admin/widgets/delete_dialog.dart';
 
-void showDeleteConfirmation(
-  BuildContext context,
-  Creation article,
-  AdminPanelViewModel viewModel,
-) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Delete Article'),
-        content: Text(
-          'Are you sure you want to delete the article ${article.title}?',
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          TextButton(
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
-            onPressed: () {
-              viewModel.deleteArticle(article.idExternePdf!, context);
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-class AdminPanelView extends StatelessWidget {
+class AdminPanelView extends StatefulWidget {
   const AdminPanelView({super.key});
 
+  @override
+  State<AdminPanelView> createState() => _AdminPanelViewState();
+}
+
+class _AdminPanelViewState extends State<AdminPanelView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AdminPanelViewModel>(
