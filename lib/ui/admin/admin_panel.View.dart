@@ -30,6 +30,7 @@ void showDeleteConfirmation(
             onPressed: () {
               viewModel.deleteArticle(article.idExternePdf!);
               ApiCreation.instance.delete(article.idExternePdf!);
+              viewModel.loadArticles();
               Navigator.of(context).pop();
             },
           ),
