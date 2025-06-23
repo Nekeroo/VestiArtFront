@@ -36,8 +36,8 @@ class HomeViewModel extends ChangeNotifier {
     _featuredCreation = _recentCreations.first;
 
     if (AuthenticationService.instance.isAuthenticated) {
-      _myCreations =
-          await ApiCreation.instance.getAll(); // TODO: get MY creations
+      final myCreations = await ApiCreation.instance.getMe();
+      _myCreations = myCreations.creations;
     }
 
     _isLoading = false;

@@ -116,13 +116,13 @@ class _HomePageState extends State<HomePage> {
           sort: Sort.dateCreate,
         ),
 
-        if (viewModel.myCreations.isNotEmpty)
+        if (AuthenticationService.instance.isAuthenticated)
           CreationCarousel(
             creations: viewModel.myCreations,
             title: 'Mes créations',
             icon: Icons.person_rounded,
             emptyMessage: 'Ajoutez votre première création',
-            sort: Sort.dateCreate,
+            sort: Sort.mine,
           ),
 
         const SliverToBoxAdapter(child: SizedBox(height: 30)),
