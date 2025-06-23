@@ -106,6 +106,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
+        const SliverToBoxAdapter(child: SizedBox(height: 30)),
+
         CreationCarousel(
           creations: viewModel.recentCreations,
           title: 'Récents',
