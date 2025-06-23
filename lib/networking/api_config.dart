@@ -7,8 +7,8 @@ abstract class ApiConfig {
 
   ApiConfig() {
     dio.options.baseUrl = 'https://vestiartapp.mathieugr.fr/';
-    dio.options.connectTimeout = const Duration(seconds: 60);
-    dio.options.receiveTimeout = const Duration(seconds: 60);
+    dio.options.connectTimeout = const Duration(seconds: 60 * 5);
+    dio.options.receiveTimeout = const Duration(seconds: 60 * 5);
 
     dio.interceptors.add(
       InterceptorsWrapper(
