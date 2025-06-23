@@ -41,12 +41,12 @@ class AuthenticationService extends ChangeNotifier {
   Future<User> login(String username, String password) async {
     try {
       final user = await ApiAuthentication.instance.login(username, password);
-      _currentUser = user;
 
       if (kIsWeb && !_isUserAdmin(user)) {
         throw sampleDioExceptionAdmin;
       }
 
+      _currentUser = user;
       await _saveToken(user.token);
       return user;
     } on DioException catch (_) {

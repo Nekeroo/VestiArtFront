@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/models/creation.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
+import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/admin/admin_panel.ViewModel.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 void showDeleteConfirmation(
   BuildContext context,
@@ -42,6 +43,18 @@ class AdminPanelView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ensure that user is admin
+    if (!AuthenticationService.instance.isAuthenticated ||
+        AuthenticationService.instance.currentUser == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacementNamed('/login');
+      });
+      return Container();
+    } else {
+      print(
+        'User is authenticated: ${AuthenticationService.instance.currentUser?.username}',
+      );
+    }
     return ChangeNotifierProvider<AdminPanelViewModel>(
       create: (context) => AdminPanelViewModel()..loadArticles(),
       child: Builder(
@@ -72,6 +85,14 @@ class AdminPanelView extends StatelessWidget {
                             color: Colors.red,
                           ),
                           onPressed: () {
+                            print('Opening PDF for article: ${article.title}');
+                            // Navigate to PDF viewer
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.pdfViewer,
+                              arguments: article,
+                            );
+                            print('PDF path: ${article.idExternePdf}');
+
                             // PDFView(
                             //   filePath: article.idExternePdf,
                             //   enableSwipe: true,
