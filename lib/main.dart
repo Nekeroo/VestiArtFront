@@ -9,7 +9,6 @@ import 'package:vesti_art/ui/creation/list/creation_list_page.dart';
 import 'package:vesti_art/ui/generation/details/prompting_details_page.dart';
 import 'package:vesti_art/ui/generation/loading/loading_page.dart';
 import 'core/routing/app_routes.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'core/services/authentication_service.dart';
 import 'ui/auth/login/login_page.dart';
 import 'ui/auth/register/register_page.dart';
@@ -17,15 +16,13 @@ import 'package:vesti_art/ui/admin/admin_panel.View.dart';
 import 'ui/common/theme/app_theme.dart';
 import 'ui/generation/prompting/prompting_page.dart';
 import 'ui/mobile/home/home_page.dart';
+import 'configure_url_others.dart'
+    if (dart.library.html) 'configure_url_web.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AuthenticationService.instance.initialize();
-
-  if (kIsWeb) {
-    setUrlStrategy(PathUrlStrategy());
-  }
-
+  configureUrl();
   runApp(const MyApp());
 }
 
