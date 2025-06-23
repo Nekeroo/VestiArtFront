@@ -7,6 +7,11 @@ class AdminPanelViewModel extends ChangeNotifier {
   bool _isLoading = false;
 
   List<Creation> get articles => _articles;
+  set articles(List<Creation> articles) {
+    _articles = articles;
+    notifyListeners();
+  }
+
   bool get isLoading => _isLoading;
 
   Future<void> loadArticles() async {
@@ -41,7 +46,7 @@ class AdminPanelViewModel extends ChangeNotifier {
   }
 
   void deleteArticle(String id) {
-    _articles.removeWhere((article) => article.idExterneImage == id);
+    _articles.removeWhere((article) => article.idExternePdf == id);
     notifyListeners();
   }
 }
