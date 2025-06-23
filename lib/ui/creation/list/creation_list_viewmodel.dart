@@ -42,6 +42,7 @@ class CreationListViewModel extends ChangeNotifier {
         _creations.addAll(response.creations);
       }
 
+      _start = response.nextKey ?? _start;
       hasNextPage = response.nextKey != null;
     } on DioException catch (e) {
       _error = e.error as NetworkException;

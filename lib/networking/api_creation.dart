@@ -116,7 +116,7 @@ class ApiCreation extends ApiConfig {
     } on DioException catch (_) {
       rethrow;
     } catch (e) {
-      print(e);
+      print("ERRORR => $e");
       throw sampleDioException;
     }
   }

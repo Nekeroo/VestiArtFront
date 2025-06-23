@@ -38,9 +38,14 @@ void showDeleteConfirmation(
   );
 }
 
-class AdminPanelView extends StatelessWidget {
+class AdminPanelView extends StatefulWidget {
   const AdminPanelView({super.key});
 
+  @override
+  State<AdminPanelView> createState() => _AdminPanelViewState();
+}
+
+class _AdminPanelViewState extends State<AdminPanelView> {
   @override
   Widget build(BuildContext context) {
     // ensure that user is admin
