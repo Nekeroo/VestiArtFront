@@ -4,10 +4,8 @@ import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/auth/widgets/auth_banner.dart';
 import 'package:vesti_art/ui/mobile/home/widgets/creation_carousel.dart';
-import '../../../core/models/creation.dart';
 import 'home_viewmodel.dart';
 import 'widgets/home_app_bar.dart';
-import 'widgets/featured_creation_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -90,8 +88,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeContent(HomeViewModel viewModel) {
-    void onCreationTap(Creation creation) {}
-
     final authService = Provider.of<AuthenticationService>(
       context,
       listen: false,
@@ -109,14 +105,6 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-
-        if (viewModel.featuredCreation != null)
-          FeaturedCreationSection(
-            creation: viewModel.featuredCreation!,
-            onTap: () => onCreationTap(viewModel.featuredCreation!),
-          ),
-
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
         CreationCarousel(
           creations: viewModel.recentCreations,
