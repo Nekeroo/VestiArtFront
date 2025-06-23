@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/creation.dart';
+import 'package:vesti_art/core/routing/app_routes.dart';
 
 class CreationPdfSection extends StatelessWidget {
   final Creation creation;
@@ -34,9 +35,13 @@ class CreationPdfSection extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.pdfViewer, arguments: creation);
+                },
                 icon: const Icon(Icons.picture_as_pdf),
-                label: const Text('View Reference PDF'),
+                label: const Text('Ouvrir le PDF'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: creation.type.color.withValues(alpha: 0.1),
                   foregroundColor: creation.type.color,
