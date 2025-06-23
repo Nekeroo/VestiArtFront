@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/models/user.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vesti_art/networking/api_authentication.dart';
 import 'package:vesti_art/networking/api_user.dart';
+import 'package:vesti_art/networking/models/network_exceptions.dart';
 
 class AuthenticationService extends ChangeNotifier {
   static final AuthenticationService instance = AuthenticationService();
@@ -39,10 +42,17 @@ class AuthenticationService extends ChangeNotifier {
     try {
       final user = await ApiAuthentication.instance.login(username, password);
       _currentUser = user;
+
+      if (kIsWeb && !_isUserAdmin(user)) {
+        throw sampleDioExceptionAdmin;
+      }
+
       await _saveToken(user.token);
       return user;
-    } catch (e) {
+    } on DioException catch (_) {
       rethrow;
+    } catch (e) {
+      throw sampleDioException;
     }
   }
 
@@ -52,17 +62,28 @@ class AuthenticationService extends ChangeNotifier {
         username,
         password,
       );
+
+      if (kIsWeb && !_isUserAdmin(user)) {
+        throw sampleDioExceptionAdmin;
+      }
+
       _currentUser = user;
       await _saveToken(user.token);
       return user;
-    } catch (e) {
+    } on DioException catch (_) {
       rethrow;
+    } catch (e) {
+      throw sampleDioException;
     }
   }
 
   Future<void> logout() async {
     _currentUser = null;
     await _clearToken();
+  }
+
+  bool _isUserAdmin(User user) {
+    return user.roles.contains(UserRole.admin);
   }
 
   Future<void> _saveToken(String token) async {
