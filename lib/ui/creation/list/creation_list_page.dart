@@ -46,7 +46,7 @@ class _CreationListPageState extends State<CreationListPage> {
                 : CreationList(
                   creations: viewModel.creations,
                   sort: viewModel.sort,
-                  onSortChange: viewModel.changeSort,
+                  loadMore: () => viewModel.loadCreations(fromStart: false),
                 );
           },
         ),
