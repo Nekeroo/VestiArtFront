@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
+import 'package:vesti_art/networking/api_creation.dart';
 import '../../../../core/models/creation.dart';
 import '../../../common/widgets/image_with_placeholder.dart';
 
@@ -8,6 +9,7 @@ class CreationCarousel extends StatelessWidget {
   final String title;
   final IconData icon;
   final String emptyMessage;
+  final Sort sort;
 
   const CreationCarousel({
     super.key,
@@ -15,6 +17,7 @@ class CreationCarousel extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.emptyMessage,
+    required this.sort,
   });
 
   _navigateToDetails(BuildContext context, Creation creation) {
@@ -57,7 +60,11 @@ class CreationCarousel extends StatelessWidget {
         ),
         const Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(
+              context,
+            ).pushNamed(AppRoutes.creationList, arguments: sort);
+          },
           child: Row(
             children: [
               const Text('Voir tout'),

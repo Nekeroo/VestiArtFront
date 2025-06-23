@@ -28,7 +28,7 @@ class _PromptingCreationsDetailsView extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         title: const Text('Créations générées'),
         leading: IconButton(

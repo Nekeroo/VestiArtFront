@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/services/authentication_service.dart';
+import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/auth/widgets/auth_banner.dart';
 import 'package:vesti_art/ui/mobile/home/widgets/creation_carousel.dart';
 import '../../../core/models/creation.dart';
@@ -122,6 +123,7 @@ class _HomePageState extends State<HomePage> {
           title: 'Récents',
           icon: Icons.access_time,
           emptyMessage: 'Consultez les créations récentes des utilisateurs ici',
+          sort: Sort.dateCreate,
         ),
 
         if (viewModel.myCreations.isNotEmpty)
@@ -130,6 +132,7 @@ class _HomePageState extends State<HomePage> {
             title: 'Mes créations',
             icon: Icons.person_rounded,
             emptyMessage: 'Ajoutez votre première création',
+            sort: Sort.dateCreate,
           ),
 
         const SliverToBoxAdapter(child: SizedBox(height: 30)),

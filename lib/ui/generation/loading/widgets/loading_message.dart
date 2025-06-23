@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 
 class LoadingMessage extends StatefulWidget {
   final String message;
-  
-  const LoadingMessage({
-    super.key,
-    required this.message,
-  });
+
+  const LoadingMessage({super.key, required this.message});
 
   @override
   State<LoadingMessage> createState() => _LoadingMessageState();
 }
 
-class _LoadingMessageState extends State<LoadingMessage> with SingleTickerProviderStateMixin {
+class _LoadingMessageState extends State<LoadingMessage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   String _currentMessage = "";
   String _nextMessage = "";
-  
+
   @override
   void initState() {
     super.initState();
@@ -26,13 +24,13 @@ class _LoadingMessageState extends State<LoadingMessage> with SingleTickerProvid
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    
-    _animation = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
+
+    _animation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
-  
+
   @override
   void didUpdateWidget(LoadingMessage oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -46,7 +44,7 @@ class _LoadingMessageState extends State<LoadingMessage> with SingleTickerProvid
       });
     }
   }
-  
+
   @override
   void dispose() {
     _controller.dispose();
@@ -64,7 +62,7 @@ class _LoadingMessageState extends State<LoadingMessage> with SingleTickerProvid
             _currentMessage,
             style: TextStyle(
               fontSize: 16,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,

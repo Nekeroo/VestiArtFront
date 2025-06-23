@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/core/models/creation_draft.dart';
+import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/creation/details/prompting_details_page.dart';
+import 'package:vesti_art/ui/creation/list/creation_list_page.dart';
 import 'package:vesti_art/ui/generation/details/prompting_details_page.dart';
 import 'package:vesti_art/ui/generation/loading/loading_page.dart';
 import 'core/routing/app_routes.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'core/services/authentication_service.dart';
 import 'ui/auth/login/login_page.dart';
 import 'ui/auth/register/register_page.dart';
@@ -18,6 +21,11 @@ import 'ui/mobile/home/home_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AuthenticationService.instance.initialize();
+
+  if (kIsWeb) {
+    setUrlStrategy(PathUrlStrategy());
+  }
+
   runApp(const MyApp());
 }
 
@@ -65,6 +73,12 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
       final arguments = settings.arguments as Creation?;
       return MaterialPageRoute(
         builder: (context) => CreationDetailsPage(creation: arguments),
+      );
+
+    case AppRoutes.creationList:
+      final arguments = settings.arguments as Sort;
+      return MaterialPageRoute(
+        builder: (context) => CreationListPage(sort: arguments),
       );
 
     case AppRoutes.prompting:
