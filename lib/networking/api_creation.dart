@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/core/models/creation_draft.dart';
 import 'package:vesti_art/networking/api_config.dart';
+import 'package:vesti_art/networking/models/creations_response.dart';
 import 'package:vesti_art/networking/models/network_exceptions.dart';
 
 enum Sort {
@@ -44,6 +45,31 @@ enum Sort {
 
 class ApiCreation extends ApiConfig {
   static ApiCreation instance = ApiCreation();
+
+  Future<CreationsResponse> getAllPagined({
+    int start = 0,
+    int nbElements = 10,
+    Sort sort = Sort.dateCreate,
+  }) async {
+    try {
+      final queryParameters = {
+        'start': start,
+        'nbElement': nbElements,
+        'sortKey': sort.name,
+      };
+
+      final response = await dio.get(
+        'idea/retrieve',
+        queryParameters: queryParameters,
+      );
+      return CreationsResponse.fromJson(response.data);
+    } on DioException catch (_) {
+      rethrow;
+    } catch (e) {
+      print(e);
+      throw sampleDioException;
+    }
+  }
 
   Future<List<Creation>> getAll({
     int start = 0,

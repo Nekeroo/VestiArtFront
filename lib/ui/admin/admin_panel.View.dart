@@ -28,10 +28,7 @@ void showDeleteConfirmation(
           TextButton(
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
             onPressed: () {
-              viewModel.deleteArticle(article.idExternePdf!);
-              ApiCreation.instance.delete(article.idExternePdf!);
-              viewModel.loadArticles();
-              Navigator.of(context).pop();
+              viewModel.deleteArticle(article.idExternePdf!, context);
             },
           ),
         ],
