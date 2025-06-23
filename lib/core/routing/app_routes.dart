@@ -8,4 +8,5 @@ class AppRoutes {
   static const promptingLoading = '/prompting/loading';
   static const promptingDetails = '/prompting/details';
   static const notFound = '/not-found';
+  static const pdfViewer = '/pdf-viewer';
 }

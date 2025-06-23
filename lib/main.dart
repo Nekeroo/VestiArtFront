@@ -8,6 +8,7 @@ import 'package:vesti_art/ui/creation/details/creation_details_page.dart';
 import 'package:vesti_art/ui/creation/list/creation_list_page.dart';
 import 'package:vesti_art/ui/generation/details/prompting_details_page.dart';
 import 'package:vesti_art/ui/generation/loading/loading_page.dart';
+import 'package:vesti_art/ui/pdf_viewer/pdf_viewer.dart';
 import 'core/routing/app_routes.dart';
 import 'core/services/authentication_service.dart';
 import 'ui/auth/login/login_page.dart';
@@ -92,6 +93,12 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
       final arguments = settings.arguments as List<Creation>?;
       return MaterialPageRoute(
         builder: (context) => PromptingDetailsPage(creations: arguments ?? []),
+      );
+
+    case AppRoutes.pdfViewer:
+      final arguments = settings.arguments as Creation?;
+      return MaterialPageRoute(
+        builder: (context) => PdfViewerPage(creation: arguments!),
       );
 
     default:
