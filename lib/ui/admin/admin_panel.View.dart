@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/models/creation.dart';
+import 'package:vesti_art/core/models/loading_state.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/networking/api_creation.dart';
@@ -30,6 +31,7 @@ void showDeleteConfirmation(
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
             onPressed: () {
               viewModel.deleteArticle(article.idExternePdf!, context);
+              Navigator.of(context).pop();
             },
           ),
         ],
@@ -46,6 +48,8 @@ class AdminPanelView extends StatefulWidget {
 }
 
 class _AdminPanelViewState extends State<AdminPanelView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     // ensure that user is admin
@@ -65,7 +69,9 @@ class _AdminPanelViewState extends State<AdminPanelView> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Admin Panel')),
+          key: _scaffoldKey,
+            appBar: AppBar(title: const Text('Admin Panel'),
+            automaticallyImplyLeading: false,),
             body: Consumer<AdminPanelViewModel>(
               builder: (context, viewModel, child) {
                 if (viewModel.isLoading) {
@@ -99,21 +105,6 @@ class _AdminPanelViewState extends State<AdminPanelView> {
                               arguments: article,
                             );
                             print('PDF path: ${article.pdfUrl}');
-
-                            // PDFView(
-                            //   filePath: article.idExternePdf,
-                            //   enableSwipe: true,
-                            //   swipeHorizontal: true,
-                            //   autoSpacing: false,
-                            //   pageFling: false,
-                            //   onError: (error) {
-                            //     print(error.toString());
-                            //   },
-                            //   onPageError: (page, error) {
-                            //     print('$page: ${error.toString()}');
-                            //   },
-                            // );
-                            // preview pdf
                           },
                         ),
 
@@ -153,8 +144,19 @@ class _AdminPanelViewState extends State<AdminPanelView> {
               onPressed: () {
                 // add article
                 print('Add new article');
+                _scaffoldKey.currentState?.openEndDrawer();
               },
               child: const Icon(Icons.add),
+            ),
+            endDrawer: Drawer(
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                child: const Column(children: [
+                  Text( 'Add New Article',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ],)
+              )
             ),
           );
         },
