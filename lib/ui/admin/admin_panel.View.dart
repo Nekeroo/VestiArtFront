@@ -4,7 +4,8 @@ import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/ui/admin/admin_panel.ViewModel.dart';
-import 'package:vesti_art/ui/pdf_viewer/pdf_downloader.dart';
+import 'package:vesti_art/ui/pdf_viewer/mobile_pdf_downloader.dart'
+    if (dart.library.html) 'package:vesti_art/ui/pdf_viewer/pdf_downloader.dart';
 
 void showDeleteConfirmation(
   BuildContext context,
