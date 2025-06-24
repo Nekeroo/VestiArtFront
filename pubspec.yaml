@@ -38,6 +38,8 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   markdown_widget: ^2.3.2+8
   syncfusion_flutter_pdfviewer: ^29.2.11
+  path_provider: ^2.1.5
+  share_plus: ^11.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/ui/creation/details/widgets/creation_description_section.dart';
 import 'package:vesti_art/ui/creation/details/widgets/creation_header_section.dart';
@@ -25,8 +28,12 @@ class CreationDetailsPage extends StatelessWidget {
         title: Text(creation!.title),
         centerTitle: false,
         actions: [
-          IconButton(icon: const Icon(Icons.ios_share), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.file_download), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {
+              SharePlus.instance.share(ShareParams(text: creation?.pdfUrl));
+            },
+          ),
         ],
       ),
       body: CustomScrollView(

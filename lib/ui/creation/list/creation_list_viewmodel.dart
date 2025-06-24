@@ -51,6 +51,7 @@ class CreationListViewModel extends ChangeNotifier {
         _creations = response.creations;
       } else {
         _creations.addAll(response.creations);
+        _creations = _creations.toSet().toList();
       }
 
       _start = response.nextKey ?? _start;
