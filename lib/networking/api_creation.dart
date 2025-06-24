@@ -118,6 +118,31 @@ class ApiCreation extends ApiConfig {
     }
   }
 
+  Future<CreationsResponse> getByType({
+    int start = 0,
+    int nbElements = 10,
+    required ReferenceType type,
+  }) async {
+    try {
+      final queryParameters = {
+        'start': start,
+        'nbElement': nbElements,
+        'type': type.name.toUpperCase(),
+      };
+
+      final response = await dio.get(
+        'idea/retrieve/type',
+        queryParameters: queryParameters,
+      );
+
+      return CreationsResponse.fromJson(response.data);
+    } on DioException catch (_) {
+      rethrow;
+    } catch (e) {
+      throw sampleDioException;
+    }
+  }
+
   Future<void> delete(String id) async {
     try {
       await dio.delete('idea/delete/$id');

@@ -149,8 +149,7 @@ class _AdminPanelViewState extends State<AdminPanelView> {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                // add article
-                print('Add new article');
+                Navigator.of(context).pushNamed(AppRoutes.prompting);
               },
               child: const Icon(Icons.add),
             ),

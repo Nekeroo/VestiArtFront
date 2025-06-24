@@ -4,6 +4,8 @@ import 'package:vesti_art/core/services/authentication_service.dart';
 import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/auth/widgets/auth_banner.dart';
 import 'package:vesti_art/ui/mobile/home/widgets/creation_carousel.dart';
+import 'package:vesti_art/ui/mobile/home/widgets/stats.dart';
+import 'package:vesti_art/ui/mobile/home/widgets/types_section.dart';
 import 'home_viewmodel.dart';
 import 'widgets/home_app_bar.dart';
 
@@ -59,7 +61,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadData() async {
+    _viewModel.setIsLoading(true);
     await _viewModel.loadCreations();
+    await _viewModel.loadStats();
+    _viewModel.setIsLoading(false);
   }
 
   @override
@@ -108,6 +113,10 @@ class _HomePageState extends State<HomePage> {
 
         const SliverToBoxAdapter(child: SizedBox(height: 30)),
 
+        TypesSection(),
+
+        const SliverToBoxAdapter(child: SizedBox(height: 30)),
+
         CreationCarousel(
           creations: viewModel.recentCreations,
           title: 'Récents',
@@ -123,6 +132,11 @@ class _HomePageState extends State<HomePage> {
             icon: Icons.person_rounded,
             emptyMessage: 'Ajoutez votre première création',
             sort: Sort.mine,
+          ),
+
+        if (viewModel.statsData != null)
+          SliverToBoxAdapter(
+            child: StatsSection(statsData: viewModel.statsData!),
           ),
 
         const SliverToBoxAdapter(child: SizedBox(height: 30)),

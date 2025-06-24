@@ -7,9 +7,11 @@ import 'package:vesti_art/networking/models/network_exceptions.dart';
 
 class CreationListViewModel extends ChangeNotifier {
   Sort sort;
+  ReferenceType referenceType;
 
-  CreationListViewModel({required this.sort}) {
-    loadCreations();
+  CreationListViewModel({required this.sort, required this.referenceType}) {
+    final shouldLoadByReferenceType = referenceType != ReferenceType.all;
+    loadCreations(shouldLoadByReferenceType: shouldLoadByReferenceType);
   }
 
   List<Creation> _creations = [];
@@ -23,18 +25,27 @@ class CreationListViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   NetworkException? get error => _error;
 
-  Future<void> loadCreations({bool fromStart = true}) async {
-    if (!hasNextPage) return;
+  Future<void> loadCreations({
+    bool fromStart = true,
+    bool shouldLoadByReferenceType = false,
+  }) async {
+    if (!hasNextPage && !fromStart) return;
     _isLoading = true;
     notifyListeners();
 
     if (fromStart) _start = 0;
 
     try {
-      final response =
-          sort == Sort.mine
-              ? await loadMyCreations()
-              : await loadSortedCreations();
+      CreationsResponse response;
+
+      if (shouldLoadByReferenceType && referenceType != ReferenceType.all) {
+        response = await loadByReferenceType();
+      } else {
+        response =
+            sort == Sort.mine
+                ? await loadMyCreations()
+                : await loadSortedCreations();
+      }
 
       if (fromStart) {
         _creations = response.creations;
@@ -70,6 +81,27 @@ class CreationListViewModel extends ChangeNotifier {
     } catch (_) {
       rethrow;
     }
+  }
+
+  Future<CreationsResponse> loadByReferenceType() async {
+    try {
+      return await ApiCreation().getByType(
+        type: referenceType,
+        start: _start,
+        nbElements: _nbElements,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  void changeReferenceType(ReferenceType referenceType) {
+    if (referenceType == this.referenceType) return;
+
+    this.referenceType = referenceType;
+    loadCreations(
+      shouldLoadByReferenceType: referenceType != ReferenceType.all,
+    );
   }
 
   void changeSort(Sort sort) {

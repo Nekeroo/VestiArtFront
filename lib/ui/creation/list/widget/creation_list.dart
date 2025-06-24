@@ -3,18 +3,19 @@ import 'package:vesti_art/core/models/creation.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/common/widgets/creation_card.dart';
-import 'package:vesti_art/ui/creation/list/widget/sort_section.dart';
 
 class CreationList extends StatefulWidget {
   final List<Creation> creations;
   final Sort sort;
   final Function() loadMore;
+  final bool isLoading;
 
   const CreationList({
     super.key,
     required this.creations,
     required this.sort,
     required this.loadMore,
+    required this.isLoading,
   });
 
   @override
@@ -54,7 +55,7 @@ class _CreationListState extends State<CreationList> {
       itemCount: creations.length + 1,
       itemBuilder: (BuildContext c, int index) {
         if (index == 0) {
-          return SortSection();
+          return _buildLoadingIndicator();
         }
 
         final creation = creations[index - 1];
@@ -72,5 +73,15 @@ class _CreationListState extends State<CreationList> {
         );
       },
     );
+  }
+
+  Widget _buildLoadingIndicator() {
+    if (widget.isLoading) {
+      return const Padding(
+        padding: EdgeInsets.only(bottom: 4),
+        child: LinearProgressIndicator(),
+      );
+    }
+    return const SizedBox(height: 8);
   }
 }

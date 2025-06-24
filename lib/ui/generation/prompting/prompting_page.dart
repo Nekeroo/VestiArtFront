@@ -58,21 +58,50 @@ class _PromptingPageState extends State<PromptingPage> {
       return _buildEmptyState(context);
     }
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: viewModel.creationDrafts.length,
-      itemBuilder: (context, index) {
-        final draft = viewModel.creationDrafts[index];
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = width < 768;
 
-        return CreationDraftCard(
-          draft: draft,
-          index: index,
-          onEdit:
-              () => _showCreationEditSheet(context, viewModel, index: index),
-          onDelete: () => viewModel.removeDraft(index),
-        );
-      },
-    );
+    if (isMobile) {
+      // Liste verticale pour mobile
+      return ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: viewModel.creationDrafts.length,
+        itemBuilder: (context, index) {
+          final draft = viewModel.creationDrafts[index];
+          return CreationDraftCard(
+            draft: draft,
+            index: index,
+            onEdit:
+                () => _showCreationEditSheet(context, viewModel, index: index),
+            onDelete: () => viewModel.removeDraft(index),
+          );
+        },
+      );
+    } else {
+      // Grille pour tablette/desktop
+      final crossAxisCount = width < 1200 ? 2 : 3;
+
+      return GridView.builder(
+        padding: const EdgeInsets.all(16),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          mainAxisExtent: 140,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+        ),
+        itemCount: viewModel.creationDrafts.length,
+        itemBuilder: (context, index) {
+          final draft = viewModel.creationDrafts[index];
+          return CreationDraftCard(
+            draft: draft,
+            index: index,
+            onEdit:
+                () => _showCreationEditSheet(context, viewModel, index: index),
+            onDelete: () => viewModel.removeDraft(index),
+          );
+        },
+      );
+    }
   }
 
   Widget _buildEmptyState(BuildContext context) {
