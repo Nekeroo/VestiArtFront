@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum ReferenceType {
+  all,
   movie,
   serie,
   anime;
@@ -8,11 +9,13 @@ enum ReferenceType {
   String get label {
     switch (this) {
       case ReferenceType.movie:
-        return 'Movie';
+        return 'Film';
       case ReferenceType.serie:
-        return 'Serie';
+        return 'Série';
       case ReferenceType.anime:
         return 'Anime';
+      case ReferenceType.all:
+        return 'Tout';
     }
   }
 
@@ -24,6 +27,8 @@ enum ReferenceType {
         return Colors.blueAccent;
       case ReferenceType.anime:
         return Colors.purpleAccent;
+      case ReferenceType.all:
+        return Colors.grey;
     }
   }
 
@@ -35,6 +40,8 @@ enum ReferenceType {
         return Icons.tv;
       case ReferenceType.anime:
         return Icons.animation;
+      case ReferenceType.all:
+        return Icons.clear_all;
     }
   }
 

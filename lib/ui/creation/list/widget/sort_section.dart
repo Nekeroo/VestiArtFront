@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/creation/list/creation_list_viewmodel.dart';
+import 'package:vesti_art/ui/creation/list/widget/filter_sheet.dart';
 
 class SortSection extends StatelessWidget {
   const SortSection({super.key});
@@ -14,13 +15,22 @@ class SortSection extends StatelessWidget {
 
     return Column(
       children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.only(left: 8, bottom: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             children: [
-              _buildSortChip(viewModel.sort, viewModel),
-              ...sortList.map((sort) => _buildSortChip(sort, viewModel)),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      _buildSortChip(viewModel.sort, viewModel),
+                      ...sortList.map((sort) => _buildSortChip(sort, viewModel)),
+                    ],
+                  ),
+                ),
+              ),
+              _buildFilterButton(context, viewModel),
             ],
           ),
         ),
@@ -50,5 +60,26 @@ class SortSection extends StatelessWidget {
       );
     }
     return const SizedBox(height: 8);
+  }
+
+  Widget _buildFilterButton(BuildContext context, CreationListViewModel viewModel) {
+    return IconButton(
+      icon: const Icon(Icons.filter_list),
+      onPressed: () => _showFilterSheet(context, viewModel),
+      tooltip: 'Filtres',
+    );
+  }
+
+  void _showFilterSheet(BuildContext context, CreationListViewModel viewModel) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => FilterSheet(
+        currentReferenceType: viewModel.referenceType,
+        currentSort: viewModel.sort,
+        changeReferenceType: viewModel.changeReferenceType,
+        changeSort: viewModel.changeSort,
+      ),
+    );
   }
 }

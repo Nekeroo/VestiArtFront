@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vesti_art/core/models/creation.dart';
-import 'package:vesti_art/core/models/loading_state.dart';
 import 'package:vesti_art/core/routing/app_routes.dart';
 import 'package:vesti_art/core/services/authentication_service.dart';
-import 'package:vesti_art/networking/api_creation.dart';
 import 'package:vesti_art/ui/admin/admin_panel.ViewModel.dart';
 import 'package:vesti_art/ui/pdf_viewer/pdf_downloader.dart';
 
@@ -49,8 +47,6 @@ class AdminPanelView extends StatefulWidget {
 }
 
 class _AdminPanelViewState extends State<AdminPanelView> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     // ensure that user is admin
@@ -70,9 +66,7 @@ class _AdminPanelViewState extends State<AdminPanelView> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-          key: _scaffoldKey,
-            appBar: AppBar(title: const Text('Admin Panel'),
-            automaticallyImplyLeading: false,),
+            appBar: AppBar(title: const Text('Admin Panel')),
             body: Consumer<AdminPanelViewModel>(
               builder: (context, viewModel, child) {
                 if (viewModel.isLoading) {
@@ -122,10 +116,8 @@ class _AdminPanelViewState extends State<AdminPanelView> {
                                 print(
                                   'Downloading PDF for article: ${article.title}',
                                 );
-                                // Here you would implement the download logic
                                 downloadPdf(article);
                                 print('PDF URL: ${article.pdfUrl}');
-
                               },
                             ),
                             IconButton(
@@ -150,21 +142,9 @@ class _AdminPanelViewState extends State<AdminPanelView> {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                // add article
-                print('Add new article');
-                _scaffoldKey.currentState?.openEndDrawer();
+                Navigator.of(context).pushNamed(AppRoutes.prompting);
               },
               child: const Icon(Icons.add),
-            ),
-            endDrawer: Drawer(
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                child: const Column(children: [
-                  Text( 'Add New Article',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                ],)
-              )
             ),
           );
         },

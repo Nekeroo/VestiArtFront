@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vesti_art/ui/common/theme/drop_down_theme.dart';
 import 'package:vesti_art/ui/common/theme/textfields_theme.dart';
 import 'button_theme.dart';
 import 'app_bar_theme.dart';
@@ -28,6 +29,7 @@ ThemeData _createTheme({required Brightness brightness}) {
         TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
       },
     ),
+    dropdownMenuTheme: DropDownTheme.dropdownMenuTheme(colorScheme),
   );
 }
 

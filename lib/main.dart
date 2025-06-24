@@ -75,9 +75,18 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
       );
 
     case AppRoutes.creationList:
-      final arguments = settings.arguments as Sort;
+      Sort sort = Sort.dateCreate;
+      ReferenceType referenceType = ReferenceType.all;
+      if (settings.arguments is Sort) {
+        sort = settings.arguments as Sort;
+      }
+      if (settings.arguments is ReferenceType) {
+        referenceType = settings.arguments as ReferenceType;
+      }
       return MaterialPageRoute(
-        builder: (context) => CreationListPage(sort: arguments),
+        builder:
+            (context) =>
+                CreationListPage(sort: sort, referenceType: referenceType),
       );
 
     case AppRoutes.prompting:
